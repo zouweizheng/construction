@@ -1,0 +1,104 @@
+1����¼��ȡtoken -get
+http://localhost:10079/conserver/token/encryptDesToken?userId=zouweizheng@gd.cmcc&password=123456
+
+2���������� -post
+url��localhost:10079/conserver/con/insertOrder?token=5B46AMkFEMDk0MkZENTk5RkRDMDI1MjM4MDg5em91d2VpemhlbmdAZ2QuY21jYw==
+���ݣ�{"conOrder":{
+	"orderName":"2017��12��19�ջ������Ե�",
+	"orderType":"���ص�",
+	"projectId":"wk1001",
+	"projectName":"���A��Ŀ",
+	"money":3322.44,
+	"feeType":"�����",
+	"feeSecondType":"�������䡢����̨�ࡢ���ͷѡ����̲���",
+	"machineType":"�I����",
+	"workType":"���ˡ���ת�����⣩��̨��",
+	"provisionType":"",
+	"destinationId":"bl1078",
+	"destinationName":"����B����",
+	"num":89,
+	"unitPrice":48.6,
+	"firstPic":"",
+	"secondlyPic":"",
+	"thirdlyPic":""
+	
+}
+	
+}
+
+3����ȡ������� -get
+http://localhost:10079/conserver/querry/groupWait?orderType=con&token=5B46AMkFEMDk0MkZENTk5RkRDMDI1MjM4MDg5em91d2VpemhlbmdAZ2QuY21jYw==
+
+4��ǩ�� -post
+url:localhost:10079/conserver/process//claim?token=5B46AMkFEMDk0MkZENTk5RkRDMDI1MjM4MDg5em91d2VpemhlbmdAZ2QuY21jYw==&orderType=con
+body:{"taskId":"1957544",
+"variables":{
+	"message":"1"
+}
+}
+
+3����ȡ���˴��� -get
+http://localhost:10079/conserver/querry/waitPerson?orderType=con&token=5B46AMkFEMDk0MkZENTk5RkRDMDI1MjM4MDg5em91d2VpemhlbmdAZ2QuY21jYw==
+
+3����ȡ�����Ѱ� -get
+http://localhost:10079/conserver/querry/finishPerson?orderType=con&token=5B46AMkFEMDk0MkZENTk5RkRDMDI1MjM4MDg5em91d2VpemhlbmdAZ2QuY21jYw==
+
+
+4������ -post
+url:localhost:10079/conserver/process/commit?token=5B46AMkFEMDk0MkZENTk5RkRDMDI1MjM4MDg5em91d2VpemhlbmdAZ2QuY21jYw==&orderType=con
+body:{"taskId":"1957544",
+"variables":{
+	"message":"1"
+}
+}
+
+5����ȡ���� -get
+http://localhost:10079/conserver/con/printNumIncrease?orderId=18021314151966&token=6BD36NjRCRTA5ODdGRUQ0RjQ5MzI1MzA4MjYzem91d2VpemhlbmdAZ2QuY21jYw==
+
+
+1.6 打印次数加一 -get
+http://localhost:10079/conserver/con/printNumIncrease?orderId=18021314151966&token=6BD36NjRCRTA5ODdGRUQ0RjQ5MzI1MzA4MjYzem91d2VpemhlbmdAZ2QuY21jYw==
+
+2.1 ���� -post
+localhost:10079/conserver/op/insertOpOrder?token=48E26NjRCRTA5ODdGRUQ0RjQ5MzI1MjYwOTcyem91d2VpemhlbmdAZ2QuY21jYw==
+
+{"opOrder":{
+	"orderName":"2018��01��12�նԵ����Ե�",
+	"orderType":"�Ե�",
+	"isInvoice":1,
+	"discount":0.9,
+	"deduction":34
+}
+}
+
+2.2 ���ص��Ե� -get
+localhost:10079/conserver/op/addCon?token=48E26NjRCRTA5ODdGRUQ0RjQ5MzI1MjYwOTcyem91d2VpemhlbmdAZ2QuY21jYw==&opOrderId=op18011211264050&conOrderId=con2017122814161287196
+
+2.3 ɾ�����ص��Ե� -get
+localhost:10079/conserver/op/delCon?token=48E26NjRCRTA5ODdGRUQ0RjQ5MzI1MjYwOTcyem91d2VpemhlbmdAZ2QuY21jYw==&opOrderId=op18011211264050&conOrderId=con2017122814161287196
+
+2.4 �����ӿ�һ��������ΪorderType=op
+
+2.5 获取可用对单 localhost:10079/conserver/op/getOp?token=48E26NjRCRTA5ODdGRUQ0RjQ5MzI1MjYwOTcyem91d2VpemhlbmdAZ2QuY21jYw==&projectName=万科A项目
+
+
+3.1 -post
+localhost:10079/conserver/bill/insertBiOrder?token=09B19NjRCRTA5ODdGRUQ0RjQ5MzI1MjkyMjY3em91d2VpemhlbmdAZ2QuY21jYw==
+{"biOrder":{
+	"billName":"2018年02月02日账单测试单",
+	"billType":"账单",
+	"projectName":"万科A项目"
+}
+}
+
+3.2 -get 增加账单
+http://localhost:10079/conserver/bill/addOp?orderType=bill&token=865C3NjRCRTA5ODdGRUQ0RjQ5MzI1MzAyODM2em91d2VpemhlbmdAZ2QuY21jYw==&billId=bi18020714352892&operationId=19
+
+3.3 -get 删除账单
+http://localhost:10079/conserver/bill/delOp?orderType=bill&token=865C3NjRCRTA5ODdGRUQ0RjQ5MzI1MzAyODM2em91d2VpemhlbmdAZ2QuY21jYw==&billId=bi18020714352892&operationId=19
+
+4.1 -get 获取所有工单
+http://localhost:10079/conserver/querry/getAllOrder?orderType=con&token=F4015MTRBMkFFOEEzQzU1NTVDNjI1MzA4MDQ5em91d2VpemhlbmdAZ2QuY21jYw==&startTime=2016-11-11%2022:10:10&endTime=2018-11-11%2022:10:10
+
+4.2 -get 根据组别信息获取信息
+http://localhost:10079/conserver/user/getUserByGroupId?groupId=partner&token=83A66MTRBMkFFOEEzQzU1NTVDNjI1MzA4NTMzem91d2VpemhlbmdAZ2QuY21jYw==

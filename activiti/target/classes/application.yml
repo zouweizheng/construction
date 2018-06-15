@@ -1,0 +1,14 @@
+server:
+  context-path: /activiti
+  port: 10021
+
+spring:
+  profiles:
+    active: dev
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="fill_parent"  
+    android:layout_height="wrap_content"  
+    android:gravity="center_horizontal"  
+    android:orientation="vertical" >  
+  
+    <LinearLayout  
+        android:id="@+id/pop_layout"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
+        android:layout_alignParentBottom="true"  
+        android:gravity="center_horizontal"  
+        android:layout_marginLeft="20dp"  
+        android:layout_marginRight="20dp"  
+        android:orientation="vertical" >  
+  
+        <Button  
+            android:id="@+id/btn1"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="本组待办"  
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" />  
+  
+        <Button  
+            android:id="@+id/btn2"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="个人待办"  
+            android:layout_marginTop="5dp"  
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" /> 
+            
+        <Button  
+            android:id="@+id/btn3"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="个人已办"  
+            android:layout_marginTop="5dp"  
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" />  
+  
+        <!-- <Button  
+            android:id="@+id/btn_cancel"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="取消"  
+            android:layout_marginBottom="20dp"  
+            android:layout_marginTop="15dp"  
+            android:background="@drawable/selector_btn"  
+            android:textColor="#3dddb0"  
+            android:textStyle="bold" />   -->
+    </LinearLayout>  
+    <LinearLayout  
+        android:id="@+id/pop_layout2"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
+        android:layout_alignParentBottom="true"  
+        android:gravity="center_horizontal"  
+        android:layout_marginLeft="20dp"  
+        android:layout_marginRight="20dp"  
+        android:orientation="vertical" 
+        android:visibility="gone">  
+  
+        <Button  
+            android:id="@+id/btn21"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="我的二维码"  
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" />  
+  
+        <Button  
+            android:id="@+id/btn22"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="修改密码"  
+            android:layout_marginTop="5dp"  
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" />  
+            
+        <Button  
+            android:id="@+id/btn23"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="绑定车队"  
+            android:layout_marginTop="5dp" 
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" />  
+  
+        <Button  
+            android:id="@+id/btn24"  
+            android:layout_width="match_parent"  
+            android:layout_height="40dp"  
+            android:text="退出登陆"  
+            android:layout_marginTop="5dp"  
+            android:textColor="#3dddb0"  
+            android:background="@drawable/selector_btn"  
+            android:textStyle="bold" />  
+        
+    </LinearLayout>  
+  
+</RelativeLayout> 

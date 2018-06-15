@@ -1,0 +1,71 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <!-- 底部操作条通用样式 -->
+    <style name="bottom_radiobutton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    
+    <!-- 主页底部文字图标  未选中-->
+    <style name="bottom_create_new" parent="bottom_radiobutton">
+        <item name="android:drawableTop">@drawable/bottom_create_new_img</item>
+    </style>
+    
+    <!-- 主页底部文字图标  选中-->
+    <style name="bottom_create_new_select" parent="bottom_radiobutton">
+        <item name="android:drawableTop">@drawable/bottom_create_new_select</item>
+         <item name="android:textColor">@color/bottom_text_highlight_color</item>
+    </style>
+
+    <!-- 主页底部文字图标  未选中-->
+    <style name="bottom_order_list" parent="bottom_radiobutton">
+        <item name="android:drawableTop">@drawable/bottom_order_list_img</item>
+    </style>
+    
+    <!-- 主页底部文字图标  选中-->
+    <style name="bottom_order_list_select" parent="bottom_radiobutton">
+        <item name="android:drawableTop">@drawable/bottom_order_list_select</item>
+        <item name="android:textColor">@color/bottom_text_highlight_color</item>
+    </style>
+    
+     <!-- 主页底部文字图标 未选中-->
+    <style name="bottom_person_center" parent="bottom_radiobutton">
+        <item name="android:drawableTop">@drawable/bottom_person_center</item>
+    </style>
+    
+    <!-- 主页底部文字图标 选中-->
+    <style name="bottom_person_center_select" parent="bottom_radiobutton">
+        <item name="android:drawableTop">@drawable/bottom_person_center_select</item>
+        <item name="android:textColor">@color/bottom_text_highlight_color</item>
+    </style>
+
+    <!-- 底部弹出菜单 -->
+    <style name="popwin_anim_style">    
+	     <item name="android:windowEnterAnimation">@anim/ppwindow_show_anim</item>    
+	     <item name="android:windowExitAnimation">@anim/ppwindow_hide_anim</item>    
+	</style> 
+</resources>

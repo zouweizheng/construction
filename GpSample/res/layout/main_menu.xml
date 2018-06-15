@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedf1" >
+
+    
+   
+	<!--下单  -->
+   <LinearLayout
+        android:id="@+id/create_order_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <include layout="@layout/create_order"/>
+        <!-- <Button
+            android:id="@+id/create_order_panel_button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_order_panel1" />
+
+        <Button
+            android:id="@+id/create_order_panel_button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_order_panel2" />
+        
+        <Button
+            android:id="@+id/create_order_panel_button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_order_panel3" /> -->
+
+    </LinearLayout>
+   
+    
+    <!--单据列表  -->
+    <LinearLayout
+         android:id="@+id/order_list_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/order_list_panel_button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_list_panel1" />
+
+        <Button
+            android:id="@+id/order_list_panel_button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_list_panel2" />
+        
+        <Button
+            android:id="@+id/order_list_panel_button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_list_panel3" />
+
+    </LinearLayout>
+    
+    <!--个人中心  -->
+    <LinearLayout
+         android:id="@+id/person_center_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/person_center_panel_button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/person_center_panel1" />
+        <Button
+            android:id="@+id/person_center_panel_button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/person_center_panel2" />
+        <Button
+            android:id="@+id/person_center_panel_button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/person_center_panel3" />
+        <Button
+            android:id="@+id/person_center_panel_button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/person_center_panel4" />
+    </LinearLayout>
+
+     <!-- 底部菜单栏 -->
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" >
+        
+         <RadioGroup
+             android:id="@+id/radioGroup"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom"
+             android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio0"
+            style="@style/bottom_create_new_select"
+            android:text="@string/create_order_nav" />
+
+        <RadioButton
+            android:id="@+id/radio1"
+            style="@style/bottom_order_list"
+            android:layout_height="wrap_content"
+            android:text="@string/order_list_nav" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            style="@style/bottom_person_center"
+            android:text="@string/person_center_nav" />
+    </RadioGroup>
+        
+    </LinearLayout>
+    
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/filename"
+        android:visibility="gone"
+        android:layout_alignTop="@+id/text" />
+    
+    
+
+</RelativeLayout>

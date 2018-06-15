@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <!--  <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />  -->
+
+    <LinearLayout
+        android:id="@+id/order_list_item_todetail"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_btn"  >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:topLeftRadius="5dp"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/order_list_item_tit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#55cedc"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="center"
+                android:text="单号"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:focusableInTouchMode="false" />
+
+            <EditText
+                android:id="@+id/order_list_item_content1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:editable="false"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:clickable="true"
+                android:focusableInTouchMode="false" >
+
+                <requestFocus />
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/order_list_item_tit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="费用类别"
+                android:background="#55cedc"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:editable="false"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:focusableInTouchMode="false" />
+
+	        <EditText
+	                android:id="@+id/order_list_item_content2"
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:background="@null"
+	                android:editable="false"
+	                android:gravity="center"
+	                android:textSize="15dp"
+	                android:focusableInTouchMode="false" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/order_list_item_tit3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="金额"
+                android:background="#55cedc"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:editable="false"
+                android:gravity="center"
+                android:textSize="15dp" 
+                android:textStyle="bold"
+                android:focusableInTouchMode="false"/>
+
+            <EditText
+                android:id="@+id/order_list_item_content3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:editable="false"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:focusableInTouchMode="false" />
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" 
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/order_list_item_tit4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="状态"
+				android:background="#55cedc"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:editable="false"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:focusableInTouchMode="false" />
+
+            <EditText
+                android:id="@+id/order_list_item_content4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:editable="false"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:focusableInTouchMode="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

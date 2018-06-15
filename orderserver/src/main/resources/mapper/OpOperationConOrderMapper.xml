@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.foundation.dao.OpOperationConOrderMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.foundation.model.OpOperationConOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="op_operation_id" jdbcType="VARCHAR" property="opOperationId" />
+    <result column="con_order_id" jdbcType="VARCHAR" property="conOrderId" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedf1" >
+
+    <ScrollView
+
+		android:id="@+id/scrollView"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"    
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            
+           <!--  <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="车牌号码："
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+                
+               <Button
+                   android:id="@+id/button13"
+                   style="?android:attr/buttonStyleSmall"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:layout_weight="2.5"
+                   android:textColor="#03549e"  
+            	   android:background="@drawable/selector_btn" 
+                   android:text="扫描" />        
+            </LinearLayout> -->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText51"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="工程项目:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+                <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:id="@+id/spinner5"
+				    android:layout_weight="1"
+				    />
+
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText61"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="费用类别:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:id="@+id/spinner6"
+				    />
+
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/carNo" >
+
+                <EditText
+                    android:id="@+id/editText11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="车牌号码："
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+                
+               <Button
+                   android:id="@+id/button13"
+                   style="?android:attr/buttonStyleSmall"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:layout_weight="2.5"
+                   android:textColor="#03549e"  
+            	   android:background="@drawable/selector_btn" 
+                   android:text="扫描" />        
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText71"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="类型:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:id="@+id/spinner7"
+				    />
+
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText81"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="工作方法:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:id="@+id/spinner8"
+				    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                 <EditText
+                    android:id="@+id/editText171"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="柴油工作类型:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:textSize="17dp"
+                    android:ems="10" >
+                    <requestFocus />
+                </EditText>
+
+               <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:id="@+id/spinner17"
+				    />
+
+            </LinearLayout>
+            <!--  <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText91"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="来源项目:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:id="@+id/spinner9"
+				    />
+
+            </LinearLayout> -->
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText101"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="目的项目:"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <Spinner 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:id="@+id/spinner10"
+				    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/beginTime" >
+
+                <EditText
+                    android:id="@+id/editText21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="开始时间："
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/endTime" >
+
+                <EditText
+                    android:id="@+id/editText31"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="结束时间："
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:layout_weight="1"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+            </LinearLayout>
+            
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText111"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="数量："
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText112"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText121"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="单价："
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText122"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/editText131"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="金额"
+                    android:editable="false"
+                    android:background="@null"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+               <EditText
+                    android:id="@+id/editText132"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+            </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:gravity="center_horizontal" >
+
+                 <ImageView
+	                android:id="@+id/image141"
+	                android:layout_width="208dp"
+	                android:layout_height="83dp"
+	                android:layout_gravity="center"
+	                android:layout_weight="0.73"
+	                android:src="@drawable/logofs" />
+
+                 <Button
+                     android:id="@+id/button142"
+                     android:layout_width="wrap_content"
+                     android:layout_height="30dp"
+                     android:textSize="16sp" 
+                     android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"
+                     android:background="@drawable/common_distribution_button_bg"
+                	 android:textColor="@color/white"
+                     android:text="车头照片" />
+
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:gravity="center_horizontal"  >
+
+                  <ImageView
+	                android:id="@+id/image151"
+	                android:layout_width="208dp"
+	                android:layout_height="83dp"
+	                android:layout_gravity="center"
+	                android:layout_weight="0.73"
+	                android:src="@drawable/logofs" />
+
+                 <Button
+                     android:id="@+id/button152"
+                     android:layout_width="wrap_content"
+                     android:layout_height="30dp"
+                     android:textSize="16sp" 
+                     android:layout_marginTop="10dp"
+	                 android:layout_marginBottom="10dp"
+                     android:background="@drawable/common_distribution_button_bg"
+                	 android:textColor="@color/white"
+                     android:text="车尾照片" />
+
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginBottom="100dp" >
+
+                 <Button
+                     android:id="@+id/button162"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:background="@drawable/common_distribution_button_bg"
+                	 android:textColor="@color/white"
+                     android:text="提交" />
+
+             </LinearLayout>
+ 			<!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginBottom="100dp" >
+
+                 <Button
+                     android:id="@+id/button172"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:text="连接打印机端口" />
+
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginBottom="100dp" >
+
+                 <Button
+                     android:id="@+id/button182"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:text="打印" />
+
+             </LinearLayout> -->
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+    
+
+</RelativeLayout>

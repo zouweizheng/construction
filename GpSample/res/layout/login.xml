@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedf1" >
+    
+    <WebView  
+       android:id="@+id/id_wv_ua"  
+       android:layout_width="match_parent"  
+       android:layout_height="match_parent"
+       android:visibility="gone"></WebView>  
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.09"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="108dp"
+                android:layout_height="63dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.73"
+                android:src="@drawable/logofs" />
+
+            <EditText
+                android:id="@+id/tit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/tit1"
+                android:textColor="@color/dimgray"
+                android:editable="false"
+                android:textSize="15dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/tit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/tit2"
+                android:textColor="@color/dimgray"
+                android:editable="false"
+                android:textSize="12dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/tit3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/tit3"
+                android:textColor="@color/dimgray"
+                android:editable="false"
+                android:textSize="15dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/tit4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/tit4"
+                android:textColor="@color/dimgray"
+                android:editable="false"
+                android:textSize="12dp" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp" >
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:drawablePadding="10dp"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dedfe0" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:drawablePadding="10dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dedfe0" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.47"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/verifyCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/verifyCode"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/verify_pic"
+                    android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/grey"
+                    android:scaleType="centerCrop" />
+
+               
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/confirm_login"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/common_distribution_button_bg"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

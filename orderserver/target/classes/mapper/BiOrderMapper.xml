@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.foundation.dao.BiOrderMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.foundation.model.BiOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="bill_id" jdbcType="VARCHAR" property="billId" />
+    <result column="bill_name" jdbcType="VARCHAR" property="billName" />
+    <result column="bill_type" jdbcType="VARCHAR" property="billType" />
+    <result column="bill_status" jdbcType="VARCHAR" property="billStatus" />
+    <result column="create_person_id" jdbcType="VARCHAR" property="createPersonId" />
+    <result column="create_person_name" jdbcType="VARCHAR" property="createPersonName" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+  </resultMap>
+</mapper>

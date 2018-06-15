@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.foundation.dao.OpOperationMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.foundation.model.OpOperation">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operation_name" jdbcType="VARCHAR" property="operationName" />
+    <result column="operation_status" jdbcType="VARCHAR" property="operationStatus" />
+    <result column="op_order_id" jdbcType="VARCHAR" property="opOrderId" />
+    <result column="fee_type" jdbcType="VARCHAR" property="feeType" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="belong_person_id" jdbcType="VARCHAR" property="belongPersonId" />
+    <result column="belong_person_name" jdbcType="VARCHAR" property="belongPersonName" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_invoice" jdbcType="INTEGER" property="isInvoice" />
+    <result column="discount" jdbcType="DOUBLE" property="discount" />
+    <result column="deduction" jdbcType="DOUBLE" property="deduction" />
+    <result column="op_order_name" jdbcType="VARCHAR" property="opOrderName" />
+    <result column="pay_status" jdbcType="VARCHAR" property="payStatus" />
+    <result column="bill_order_id" jdbcType="VARCHAR" property="billOrderId" />
+  </resultMap>
+</mapper>

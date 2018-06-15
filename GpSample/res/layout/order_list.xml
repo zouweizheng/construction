@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedf1" >
+
+    
+    
+    <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"    
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/order_list_button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/order_list1" 
+                    android:textColor="#03549e"  
+                    android:layout_marginRight="20dp"
+            	    android:background="@drawable/selector_btn"/>
+
+                <Button
+                    android:id="@+id/order_list_button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/order_list2" 
+                    android:textColor="#03549e"  
+            	    android:background="@drawable/selector_btn" />
+
+            </LinearLayout>
+
+
+    </LinearLayout> -->
+     <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:id="@+id/none_list"
+               android:visibility="gone" >
+
+               <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:background="@null"
+                    android:text="无订单"
+                    android:ems="10" >
+
+                    <requestFocus />
+                </EditText>
+
+    </LinearLayout>
+
+     <!-- 顶部搜索栏 -->
+    <LinearLayout
+        android:id="@+id/search_nav"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp" >
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:layout_weight="1"
+            android:hint="请输入单号/费用类别/项目名/车牌号"
+            android:textSize="12sp"
+            android:gravity="center_horizontal"
+            android:inputType="textPostalAddress" />
+		<EditText
+            android:id="@+id/none"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:editable="false"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPostalAddress" />
+		
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="查找"
+            android:textColor="#03549e"
+            android:layout_weight="2"
+            android:background="@drawable/selector_btn" 
+            style="?android:attr/buttonStyleSmall" />
+    </LinearLayout>
+    
+    
+    <ListView
+        android:id="@+id/order_list"
+        android:layout_width="fill_parent"
+        
+        android:divider="@null" 
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="50dp" />
+    
+    <!-- 底部分页栏 -->
+    <LinearLayout
+        android:id="@+id/page_nav"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:visibility="gone"  >
+
+        <Button
+            android:id="@+id/prev_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="上一页"
+            android:textColor="#03549e"
+            android:layout_weight="2"
+            android:background="@drawable/selector_btn"
+            style="?android:attr/buttonStyleSmall"  />
+
+        <EditText
+            android:id="@+id/this_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="2"
+            android:text="1"
+            android:textColor="#fff"
+            android:editable="false"
+            android:background="@null"
+            android:gravity="center_horizontal"
+            android:inputType="textPostalAddress" />
+
+        <Button
+            android:id="@+id/next_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下一页"
+            android:textColor="#03549e"
+            android:layout_weight="2"
+            android:background="@drawable/selector_btn" 
+            style="?android:attr/buttonStyleSmall" />
+    </LinearLayout>
+    
+     <!-- 底部菜单栏 -->
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" >
+        
+         <RadioGroup
+             android:id="@+id/radioGroup"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom"
+             android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio0"
+            style="@style/bottom_create_new"
+            android:text="@string/create_order_nav" />
+
+        <RadioButton
+            android:id="@+id/radio1"
+            style="@style/bottom_order_list_select"
+            android:layout_height="wrap_content"
+            android:text="@string/order_list_nav" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            style="@style/bottom_person_center"
+            android:text="@string/person_center_nav" />
+    </RadioGroup>
+        
+    </LinearLayout>
+
+</RelativeLayout>

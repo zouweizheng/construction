@@ -1,0 +1,10 @@
+spring:
+  profiles: dev
+
+
+activiti: #自定义的属性和值
+  activitiRestUrl: dev
+  processId: zoutest:2:17166
+  password: ${aa.bb.cc}
+  hotelOrderRestUrl: http://localhost:10022/order
+  agentPerson: agentPerson

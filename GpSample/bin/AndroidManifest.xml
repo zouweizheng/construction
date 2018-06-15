@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sample"
+    android:versionCode="1"
+    android:versionName="1.6.2" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.hardware.usb.accessory" />
+     <!-- <uses-permission android:name="android.permission.DEVICE_POWER"/> -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 拍照和存储权限 -->
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<!-- 访问网络权限 -->
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+	
+    <application
+        android:allowBackup="true"
+        android:name="com.gprint.common.MyApplication"
+        android:icon="@drawable/launcherfs"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+     <activity
+            android:name="com.gprinter.sample.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.gprinter.sample.DeviceBootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.gprinter.sample.PrinterConnectDialog"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
+     <!-- 端口设置对话 -->
+        <activity
+            android:name="com.gprinter.sample.PortConfigurationActivity"
+            android:label="@string/port_configuration"
+            android:theme="@android:style/Theme.Dialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
+        </activity>
+      <!-- 蓝牙设备 -->
+          <activity
+            android:name="com.gprinter.sample.BluetoothDeviceList"
+            android:label="@string/bluetooth_device_list"
+            android:theme="@android:style/Theme.Dialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
+         </activity>
+      <!-- USB设备 -->
+          <activity
+            android:name="com.gprinter.sample.UsbDeviceList"
+            android:label="@string/usb_devices_list"
+            android:theme="@android:style/Theme.Dialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
+         </activity>
+         
+         <!-- 主菜单页 -->
+         <activity
+            android:name="com.gprinter.sample.MainMenuActivity"
+             android:screenOrientation="portrait"
+             android:windowSoftInputMode="adjustPan">
+         </activity>
+        
+         <!-- 下单页 -->
+         <activity
+            android:name="com.gprinter.sample.CreateOrderActivity"
+             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+         </activity>
+         
+         <!-- 单据列表页 -->
+         <activity
+            android:name="com.gprinter.sample.OrderListActivity"
+             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+         </activity>
+         
+          <!-- 工单详情页 -->
+         <activity
+            android:name="com.gprinter.sample.OrderDetailActivity"
+             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+         </activity>
+         
+         <!-- 扫描二维码 -->
+          <activity
+            android:name="com.google.zxing.client.android.CaptureActivity"
+             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+         </activity>
+        
+        <service
+            android:name="com.gprinter.service.GpPrintService"
+            android:label="GpPrintService"
+            android:process=":remote"
+            android:enabled="true"
+            android:exported="true"
+             >
+            <intent-filter>
+                <action android:name="com.gprinter.aidl.GpPrintService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
