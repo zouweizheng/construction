@@ -1,17 +1,15 @@
 package com.company.project.core.service;
 
 
+import com.company.project.foundation.dao.MixMapper;
 import com.company.project.construction.pojo.ClaimInfo;
 import com.company.project.core.mapper.OrderMapper;
 import com.company.project.core.pojo.*;
-import com.company.project.core.pojo.TaskInfo;
 import com.company.project.core.util.MapReflect;
 import com.company.project.core.util.MapToObjectUtil;
 import com.company.project.core.util.NewActivitiUtil;
-import com.nfjd.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
@@ -28,6 +26,8 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     @Autowired
     ApplicationContext applicationContext;
 
+    @Autowired
+    MixMapper mixMapper;
 
 
 
@@ -122,19 +122,19 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     @Override
     public List<TaskAndOrder> getPersonWait(String userId, String Tid) {
         ApiResult apiResult = NewActivitiUtil.queryAssignedTask(activitiUrl,userId,agentPerson,processDefinitionId,Tid);
-        return selectOrder(apiResult);
+        return selectOrder(apiResult,"");
     }
 
 
     @Override
-    public List<TaskAndOrder> getGroupWait(String userId, String Tid) {
+    public List<TaskAndOrder> getGroupWait(String userId, String Tid,String searchWord) {
         ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
         if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
         List<Map> groupList = (List<Map>) apiResult.getBody();
         List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
         for(Map map : groupList){
             apiResult = NewActivitiUtil.queryCandidateTask(activitiUrl,map.get("id").toString(),processDefinitionId,Tid);
-            taskAndOrderList.addAll(selectOrder(apiResult));
+            taskAndOrderList.addAll(selectOrder(apiResult,searchWord));
         }
         return taskAndOrderList;
     }
@@ -148,15 +148,15 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     }
 
     @Override
-    public List<TaskAndOrder> getPersonFinish(String userId, String Tid) {
+    public List<TaskAndOrder> getPersonFinish(String userId, String Tid,String searchWord) {
         ApiResult apiResult = NewActivitiUtil.queryFinishTask(activitiUrl,userId,processDefinitionId,Tid);
-        return selectOrder(apiResult);
+        return selectOrder(apiResult,searchWord);
     }
 
     @Override
     public List<TaskAndOrder> getNodeWait(String nodeName, String Tid) {
         ApiResult apiResult = NewActivitiUtil.queryNodeTask(activitiUrl,nodeName,processDefinitionId,Tid);
-        return selectOrder(apiResult);
+        return selectOrder(apiResult,"");
     }
 
     @Override
@@ -181,7 +181,7 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     @Override
     public List<TaskAndOrder> getNodeFinish(String nodeName, String Tid) {
         ApiResult apiResult = NewActivitiUtil.queryFinishNode(activitiUrl,nodeName,processDefinitionId,Tid);
-        return selectOrder(apiResult);
+        return selectOrder(apiResult,"");
     }
 
     @Override
@@ -259,7 +259,8 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
         return taskAndOrder;
     }
 
-    private List<TaskAndOrder>  selectOrder(ApiResult<List> listApiResult){
+    //之前的做法为单个循环查找
+    /*private List<TaskAndOrder>  selectOrder(ApiResult<List> listApiResult){
         if(!(0==listApiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(listApiResult.toString());
         List<Map> taskInfoList = listApiResult.getBody();
         List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
@@ -281,6 +282,55 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
             taskAndOrderList.add(taskAndOrder);
         }
         return taskAndOrderList;
+    }*/
+
+    private List<TaskAndOrder>  selectOrder(ApiResult<List> listApiResult, String searchWord){
+        if(!(0==listApiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(listApiResult.toString());
+        List<Map> taskInfoList = listApiResult.getBody();
+        List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
+        TaskInfo taskInfo = new TaskInfo();
+
+        //1、获取所有orderId，2、封装单独的taskInfo
+        List<String> orderIds = new ArrayList<>();
+        Map<String,TaskInfo> taskInfoMap = new HashMap<>();
+        for(Map map : taskInfoList){
+            try {
+                taskInfo = MapToObjectUtil.mapperObj(map,taskInfo.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
+            String orderId = taskInfo.getBusinessKey();
+            if("".equals(orderId)||null==orderId) continue;
+            orderIds.add(taskInfo.getBusinessKey());
+            if(taskInfoMap.containsKey(orderId)) continue;
+            taskInfoMap.put(orderId,taskInfo);
+        }
+
+        //查找orderPojoList并封装
+        List<OrderPojo> orderPojoList = orderImplMapper.getOrderList(orderIds,searchWord);
+        for(OrderPojo orderPojo : orderPojoList){
+            TaskAndOrder taskAndOrder = new TaskAndOrder();
+            String orderId = orderPojo.getId();
+            taskAndOrder.setOrderPojo(orderPojo);
+            taskAndOrder.setOrderId(orderId);
+            taskAndOrder.setTaskInfo(taskInfoMap.get(orderId));
+            taskAndOrderList.add(taskAndOrder);
+        }
+
+        return taskAndOrderList;
     }
+
+    public Map getTotalInfo(){
+        /*List conOrderList = conOrderMapper.selectAll();
+        Map map = new HashMap();
+        map.put("conOrderList",conOrderList);
+        return map;*/
+        Object num = mixMapper.getTotalNum("万科A14地块土方");
+        Map map = new HashMap();
+        map.put("conOrderList",num);
+        return map;
+    }
+
 
 }

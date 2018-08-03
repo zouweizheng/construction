@@ -1,7 +1,9 @@
 package com.company.project.construction.web;
 
 
+import com.company.project.construction.mapper.ConOrderExtMapper;
 import com.company.project.construction.pojo.ConstructionPojo;
+import com.company.project.construction.service.ConstructionService;
 import com.company.project.core.pojo.ApiResult;
 import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.service.AbstractService;
@@ -12,9 +14,11 @@ import com.company.project.foundation.service.ConOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +30,9 @@ public class ConstructionController {
 
     @Autowired
     ConOrderService conOrderService;
+
+    @Autowired
+    ConstructionService constructionService;
 
 
     @Autowired
@@ -66,6 +73,16 @@ public class ConstructionController {
         conOrder.setPrintNum(++printNum);
         conOrderService.update(conOrder);
         return ResultGenerator.genSuccessResult(conOrder);
+    }
+
+    @GetMapping("/getTotal")
+    public Result getTotal(){
+
+        /*ConOrder conOrder = new ConOrder();
+        Condition condition = new Condition(conOrder.getClass());
+        condition.and();*/
+        Map map = constructionService.getTotalInfo();
+        return ResultGenerator.genSuccessResult(map);
     }
 
 

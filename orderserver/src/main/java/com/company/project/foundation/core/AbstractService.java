@@ -1,6 +1,7 @@
 package com.company.project.foundation.core;
 
 
+import com.company.project.foundation.dao.ConOrderMapper;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
@@ -16,6 +17,10 @@ public abstract class AbstractService<T> implements Service<T> {
 
     @Autowired
     protected mapper<T> Mapper;
+
+    @Autowired
+    ConOrderMapper conOrderMapper;
+
 
     private Class<T> modelClass;    // 当前泛型真实类型的Class
 

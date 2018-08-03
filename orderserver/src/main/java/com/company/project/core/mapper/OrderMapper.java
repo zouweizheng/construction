@@ -19,8 +19,8 @@ public interface OrderMapper<OrderPojo>  {
 
 
     String setOrder(OrderPojo model);
-    List<OrderPojo> getOrderList(List<String> Ids);
-    OrderPojo getOrderInfo(String id);
+    List<OrderPojo> getOrderList(List<String> orderIds,String searchWord);
+    OrderPojo getOrderInfo(String orderId);
     boolean deleteOrder(String id);
     String getProcessDefinitionId();
     List<OrderPojo> getOrderByTime(Date startTime,Date endTime);

@@ -54,8 +54,14 @@ public class BillMapper extends OrderImplMapper<BillPojo> {
     }
 
     @Override
-    public List getOrderList(List Ids) {
-        return null;
+    public List<BillPojo> getOrderList(List<String> Ids,String searchName) {
+        List<BillPojo> billPojoList = new ArrayList<>();
+        for(String orderId : Ids){
+            BillPojo billPojo = getOrderInfo(orderId);
+            if(null==billPojo) continue;
+            billPojoList.add(billPojo);
+        }
+        return billPojoList;
     }
 
     @PostConstruct
@@ -69,6 +75,7 @@ public class BillMapper extends OrderImplMapper<BillPojo> {
         BillPojo billPojo =new BillPojo();
         if(null==biOrder) return billPojo;
         billPojo.setBiOrder(biOrder);
+        billPojo.setId(id);
         //查找关联表
         BiOrderOpOperation biOrderOpOperation = new BiOrderOpOperation();
         Condition condition = new Condition(biOrderOpOperation.getClass());

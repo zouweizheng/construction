@@ -29,7 +29,7 @@
     <result column="provision_type" jdbcType="VARCHAR" property="provisionType" />
     <result column="destination_id" jdbcType="VARCHAR" property="destinationId" />
     <result column="destination_name" jdbcType="VARCHAR" property="destinationName" />
-    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="num" jdbcType="DOUBLE" property="num" />
     <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
     <result column="first_pic" jdbcType="VARCHAR" property="firstPic" />
     <result column="secondly_pic" jdbcType="VARCHAR" property="secondlyPic" />

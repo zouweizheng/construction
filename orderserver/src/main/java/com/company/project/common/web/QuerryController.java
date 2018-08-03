@@ -1,12 +1,16 @@
 package com.company.project.common.web;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.company.project.common.util.TypeReflect;
 import com.company.project.core.pojo.ApiResult;
 import com.company.project.core.pojo.OrderPojo;
+import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.service.AbstractService;
 import com.company.project.foundation.core.Result;
 import com.company.project.foundation.core.ResultGenerator;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +41,20 @@ public class QuerryController {
     }
 
     @GetMapping("/groupWait")
-    public Result groupWait(@RequestParam String orderType ,@RequestAttribute String userId,@RequestAttribute String tid) {
+    public Result groupWait(@RequestParam String orderType ,@RequestAttribute String userId,@RequestAttribute String tid,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,@RequestParam(defaultValue = "0") String pagination,@RequestParam(defaultValue = "") String searchWord) {
         AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType),AbstractService.class);
-        List listResult = orderService.getGroupWait(userId, tid);
-        return ResultGenerator.genSuccessResult(listResult);
+        List<TaskAndOrder> listResult ;
+        if("0".equals(pagination)){
+            listResult = orderService.getGroupWait(userId, tid,searchWord);
+            return ResultGenerator.genSuccessResult(listResult);
+        }
+        else{
+            PageHelper.startPage(page, size);
+            listResult = orderService.getGroupWait(userId, tid,searchWord);
+            PageInfo pageInfo = new PageInfo(listResult);
+            return ResultGenerator.genSuccessResult(pageInfo);
+        }
+
     }
 
     @GetMapping("/nodeOrder")
@@ -50,10 +64,19 @@ public class QuerryController {
         return ResultGenerator.genSuccessResult(listResult);
     }
     @GetMapping("/finishPerson")
-    public Result finishPerson(@RequestParam String orderType,@RequestAttribute String userId,@RequestAttribute String tid) {
+    public Result finishPerson(@RequestParam String orderType,@RequestAttribute String userId,@RequestAttribute String tid,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,@RequestParam(defaultValue = "0") String pagination,@RequestParam(defaultValue = "") String searchWord) {
         AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType),AbstractService.class);
-        List listResult = orderService.getPersonFinish(userId, tid);
-        return ResultGenerator.genSuccessResult(listResult);
+        List listResult;
+        if("0".equals(pagination)){
+            listResult = orderService.getPersonFinish(userId, tid,searchWord);
+            return ResultGenerator.genSuccessResult(listResult);
+        }
+        else{
+            PageHelper.startPage(page, size);
+            listResult = orderService.getPersonFinish(userId, tid,searchWord);
+            PageInfo pageInfo = new PageInfo(listResult);
+            return ResultGenerator.genSuccessResult(pageInfo);
+        }
     }
 
     @RequestMapping(value="/getorderdetail", method = RequestMethod.GET)

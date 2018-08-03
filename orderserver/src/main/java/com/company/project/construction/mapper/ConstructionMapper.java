@@ -43,17 +43,26 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
     }
 
     @Override
-    public List getOrderList(List<String> Ids) {
+    public List<ConstructionPojo> getOrderList(List<String> orderIds,String searchWord) {
 
        // conOrderService.findById()
-        if(0==Ids.size()) return null;
-        String str = "";
-        for (String id : Ids){
-            str += (id + ",");
+        if(0==orderIds.size()) return null;
+        ConOrder conOrder = new ConOrder();
+        Condition condition = new Condition(conOrder.getClass());
+        condition.and().andIn("orderId",orderIds);
+        if(!"".equals(searchWord)){
+            condition.and().orLike("orderId",searchWord).orLike("orderName",searchWord).orLike("projectName",searchWord).orLike("motorcadeId",searchWord).orLike("motorcadeId",searchWord);
         }
-        str = str.substring(0,str.length()-1);
-        List<ConOrder> conOrderList = conOrderService.findByIds(str);
-        return null;
+        condition.setOrderByClause("create_time desc");
+        List<ConOrder> conOrderList = conOrderService.findByCondition(condition);
+        List<ConstructionPojo> constructionPojoList = new ArrayList<>();
+        for(ConOrder conOrderGet : conOrderList){
+            ConstructionPojo constructionPojo = new ConstructionPojo();
+            constructionPojo.setConOrder(conOrderGet);
+            constructionPojo.setId(conOrderGet.getOrderId());
+            constructionPojoList.add(constructionPojo);
+        }
+        return constructionPojoList;
     }
 
     @PostConstruct
@@ -90,6 +99,7 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
         for(ConOrder conOrderGet : conOrderList){
             ConstructionPojo constructionPojo = new ConstructionPojo();
             constructionPojo.setConOrder(conOrderGet);
+            constructionPojo.setId(conOrderGet.getOrderId());
             constructionPojoList.add(constructionPojo);
         }
         return constructionPojoList;

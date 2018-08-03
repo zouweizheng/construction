@@ -143,7 +143,7 @@ public class ConOrder {
     /**
      * 数量
      */
-    private Integer num;
+    private Double num;
 
     /**
      * 单价
@@ -630,7 +630,7 @@ public class ConOrder {
      *
      * @return num - 数量
      */
-    public Integer getNum() {
+    public Double getNum() {
         return num;
     }
 
@@ -639,7 +639,7 @@ public class ConOrder {
      *
      * @param num 数量
      */
-    public void setNum(Integer num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 

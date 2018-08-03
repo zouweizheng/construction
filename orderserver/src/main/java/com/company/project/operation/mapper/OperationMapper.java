@@ -57,17 +57,14 @@ public class OperationMapper extends OrderImplMapper<OperationPojo> {
     }
 
     @Override
-    public List getOrderList(List<String> Ids) {
-
-       // conOrderService.findById()
-        if(0==Ids.size()) return null;
-        String str = "";
-        for (String id : Ids){
-            str += (id + ",");
+    public List<OperationPojo> getOrderList(List<String> Ids,String searchName) {
+        List<OperationPojo> operationPojoList = new ArrayList<>();
+        for(String orderId : Ids){
+            OperationPojo operationPojo = getOrderInfo(orderId);
+            if(null==operationPojo) continue;
+            operationPojoList.add(operationPojo);
         }
-        str = str.substring(0,str.length()-1);
-        List<OpOrder> conOrderList = opOrderService.findByIds(str);
-        return null;
+        return operationPojoList;
     }
 
     @PostConstruct
@@ -97,6 +94,7 @@ public class OperationMapper extends OrderImplMapper<OperationPojo> {
         OperationPojo operationPojo =new OperationPojo();
         operationPojo.setOpOrder(opOrder);
         operationPojo.setOpOperationList(opOperationList);
+        operationPojo.setId(opOrder.getOrderId());
         //查找conorder
         if(0==conIdList.size()) return operationPojo;
         ConOrder conOrder = new ConOrder();

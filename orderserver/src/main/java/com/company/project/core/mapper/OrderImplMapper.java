@@ -27,7 +27,7 @@ public  class OrderImplMapper<OrderPojo> implements OrderMapper<OrderPojo> {
     }
 
     @Override
-    public List<OrderPojo> getOrderList(List<String> Ids) {
+    public List<OrderPojo> getOrderList(List<String> orderIds,String searchWord) {
         return null;
     }
 
