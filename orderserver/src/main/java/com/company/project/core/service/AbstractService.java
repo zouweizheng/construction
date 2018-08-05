@@ -363,17 +363,9 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
         return taskAndOrderList;
     }
 
-    public Map getTotalInfo(){
-        /*List conOrderList = conOrderMapper.selectAll();
-        Map map = new HashMap();
-        map.put("conOrderList",conOrderList);
-        return map;*/
-        Map map = new HashMap();
-        map.put("projectName","万科A14地块土方");
-        map.put("motorcadeId","A");
-        Object num = mixMapper.getTotalNum(map);
-        map.put("conOrderList",num);
-        return map;
+    public Map getTotalInfo(Map inputMap){
+        Map totalInfo = mixMapper.getTotalNum(inputMap);
+        return totalInfo;
     }
 
 

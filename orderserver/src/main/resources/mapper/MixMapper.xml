@@ -43,11 +43,26 @@
   </resultMap>
 
   <select id="getTotalNum" resultType="Map">
-    SELECT sum(num) as num,sum(money) as money FROM con_order
+    SELECT  ifnull(SUM(num),0) as totalNum, ifnull(SUM(money),0) as totalMoney FROM con_order
     <where>
       project_name = #{projectName}
       <if test='motorcadeId!= null and motorcadeId!= ""'>
         and  motorcade_id= #{motorcadeId}
+      </if>
+      <if test='motorcadeName!= null and motorcadeName!= ""'>
+        and  motorcade_name= #{motorcadeName}
+      </if>
+      <if test='workType!= null and workType!= ""'>
+        and  work_type= #{workType}
+      </if>
+      <if test='createPerson!= null and createPerson!= ""'>
+        and  create_person_id= #{createPerson}
+      </if>
+      <if test='startTime!= null and startTime!= ""'>
+        and  create_time > #{startTime}
+      </if>
+      <if test='endTime!= null and endTime!= ""'>
+        and   #{endTime} > create_time
       </if>
     </where>
   </select>

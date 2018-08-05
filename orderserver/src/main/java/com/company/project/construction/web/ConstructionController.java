@@ -76,12 +76,21 @@ public class ConstructionController {
     }
 
     @GetMapping("/getTotal")
-    public Result getTotal(){
+    public Result getTotal(@RequestParam String projectName, @RequestParam(required = false) String motorcadeId,  @RequestParam(required = false) String motorcadeName,  @RequestParam(required = false) String workType,  @RequestParam(required = false) String createPerson,  @RequestParam(required = false) Date startTime,  @RequestParam(required = false) Date endTime){
 
         /*ConOrder conOrder = new ConOrder();
         Condition condition = new Condition(conOrder.getClass());
         condition.and();*/
-        Map map = constructionService.getTotalInfo();
+        Map map = new HashMap();
+        map.put("projectName",projectName);
+        map.put("motorcadeId",motorcadeId);
+        map.put("motorcadeName",motorcadeName);
+        map.put("workType",workType);
+        map.put("createPerson",createPerson);
+        map.put("startTime",startTime);
+        map.put("endTime",endTime);
+        Map totalInfo = constructionService.getTotalInfo(map);
+        map.putAll(totalInfo);
         return ResultGenerator.genSuccessResult(map);
     }
 
