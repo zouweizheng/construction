@@ -368,8 +368,10 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
         Map map = new HashMap();
         map.put("conOrderList",conOrderList);
         return map;*/
-        Object num = mixMapper.getTotalNum("万科A14地块土方");
         Map map = new HashMap();
+        map.put("projectName","万科A14地块土方");
+        map.put("motorcadeId","A");
+        Object num = mixMapper.getTotalNum(map);
         map.put("conOrderList",num);
         return map;
     }

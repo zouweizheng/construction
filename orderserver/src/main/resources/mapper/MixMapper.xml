@@ -46,8 +46,8 @@
     SELECT sum(num) as num,sum(money) as money FROM con_order
     <where>
       project_name = #{projectName}
-      <if test="userCustom.sex!=null and userCustom.sex!=''">
-        and  user.sex= #{userCustom.sex}
+      <if test='motorcadeId!= null and motorcadeId!= ""'>
+        and  motorcade_id= #{motorcadeId}
       </if>
     </where>
   </select>
