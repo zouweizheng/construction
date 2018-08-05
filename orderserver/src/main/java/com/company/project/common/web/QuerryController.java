@@ -34,10 +34,19 @@ public class QuerryController {
     ApplicationContext applicationContext;
 
     @GetMapping("/waitPerson")
-    public Result waitPerson(@RequestParam String orderType,@RequestAttribute String userId,@RequestAttribute String tid) {
+    public Result waitPerson(@RequestParam String orderType ,@RequestAttribute String userId,@RequestAttribute String tid,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,@RequestParam(defaultValue = "0") String pagination,@RequestParam(defaultValue = "") String searchWord) {
         AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType),AbstractService.class);
-        List listResult = orderService.getPersonWait(userId, tid);
-        return ResultGenerator.genSuccessResult(listResult);
+        List<TaskAndOrder> listResult ;
+        if("0".equals(pagination)){
+            listResult = orderService.getPersonWait(userId, tid,searchWord);
+            return ResultGenerator.genSuccessResult(listResult);
+        }
+        else{
+            //PageHelper.startPage(page, size);
+            PageInfo pageInfo = orderService.getPersonWait(userId, tid,searchWord,page,size);
+            //PageInfo pageInfo = new PageInfo(listResult);
+            return ResultGenerator.genSuccessResult(pageInfo);
+        }
     }
 
     @GetMapping("/groupWait")
@@ -49,9 +58,7 @@ public class QuerryController {
             return ResultGenerator.genSuccessResult(listResult);
         }
         else{
-            PageHelper.startPage(page, size);
-            listResult = orderService.getGroupWait(userId, tid,searchWord);
-            PageInfo pageInfo = new PageInfo(listResult);
+            PageInfo pageInfo = orderService.getGroupWait(userId, tid,searchWord,page,size);
             return ResultGenerator.genSuccessResult(pageInfo);
         }
 
@@ -72,9 +79,7 @@ public class QuerryController {
             return ResultGenerator.genSuccessResult(listResult);
         }
         else{
-            PageHelper.startPage(page, size);
-            listResult = orderService.getPersonFinish(userId, tid,searchWord);
-            PageInfo pageInfo = new PageInfo(listResult);
+            PageInfo pageInfo = orderService.getPersonFinish(userId, tid,searchWord,page,size);
             return ResultGenerator.genSuccessResult(pageInfo);
         }
     }

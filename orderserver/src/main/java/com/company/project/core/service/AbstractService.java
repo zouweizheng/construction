@@ -8,6 +8,8 @@ import com.company.project.core.pojo.*;
 import com.company.project.core.util.MapReflect;
 import com.company.project.core.util.MapToObjectUtil;
 import com.company.project.core.util.NewActivitiUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
@@ -120,9 +122,17 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     }
 
     @Override
-    public List<TaskAndOrder> getPersonWait(String userId, String Tid) {
+    public List<TaskAndOrder> getPersonWait(String userId, String Tid,String searchWord) {
         ApiResult apiResult = NewActivitiUtil.queryAssignedTask(activitiUrl,userId,agentPerson,processDefinitionId,Tid);
-        return selectOrder(apiResult,"");
+        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
+        return selectOrder(apiResult,searchWord);
+    }
+
+    @Override
+    public PageInfo getPersonWait(String userId, String Tid,String searchWord,Integer page,Integer size) {
+        ApiResult apiResult = NewActivitiUtil.queryAssignedTask(activitiUrl,userId,agentPerson,processDefinitionId,Tid);
+        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
+        return selectOrder(apiResult,searchWord,page,size);
     }
 
 
@@ -138,6 +148,21 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
         }
         return taskAndOrderList;
     }
+    @Override
+    public PageInfo getGroupWait(String userId, String Tid,String searchWord,Integer page,Integer size) {
+        ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
+        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
+        List<Map> groupList = (List<Map>) apiResult.getBody();
+        List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
+        List<Map> taskInfoList = new ArrayList<>();
+        for(Map map : groupList){
+            apiResult = NewActivitiUtil.queryCandidateTask(activitiUrl,map.get("id").toString(),processDefinitionId,Tid);
+            if(null==apiResult.getBody()) continue;
+            taskInfoList.addAll((List<Map>) apiResult.getBody());
+        }
+        return orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);
+    }
+
 
     @Override
     public List<TaskAndOrder> getPersonCreate(String userId, String Tid) {
@@ -151,6 +176,13 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     public List<TaskAndOrder> getPersonFinish(String userId, String Tid,String searchWord) {
         ApiResult apiResult = NewActivitiUtil.queryFinishTask(activitiUrl,userId,processDefinitionId,Tid);
         return selectOrder(apiResult,searchWord);
+    }
+
+    @Override
+    public PageInfo getPersonFinish(String userId, String Tid, String searchWord, Integer page, Integer size) {
+        ApiResult apiResult = NewActivitiUtil.queryFinishTask(activitiUrl,userId,processDefinitionId,Tid);
+        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
+        return selectOrder(apiResult,searchWord,page,size);
     }
 
     @Override
@@ -283,6 +315,16 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
         }
         return taskAndOrderList;
     }*/
+
+    private PageInfo  selectOrder(ApiResult<List> listApiResult, String searchWord,Integer page,Integer size){
+        if(!(0==listApiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(listApiResult.toString());
+        List<Map> taskInfoList = listApiResult.getBody();
+
+        PageInfo orderPojoList = orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);
+
+        return orderPojoList;
+    }
+
 
     private List<TaskAndOrder>  selectOrder(ApiResult<List> listApiResult, String searchWord){
         if(!(0==listApiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(listApiResult.toString());

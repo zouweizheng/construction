@@ -74,7 +74,6 @@ public class HttpAspect {
         Map userInfo=new HashMap();
         inputParamMap = request.getParameterMap();
         requestPath = request.getRequestURI();
-        request.setAttribute("userId","zouweizheng@gd.cmcc");
         request.setAttribute("tid","898989898");
         ip = request.getRemoteAddr();
         outputParamMap = new HashMap<String, Object>();
