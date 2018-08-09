@@ -98,8 +98,13 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
         //condition.setOrderByClause("create_time desc limit " + startNum + "," + size);
         condition.setOrderByClause("create_time desc");
         PageHelper.startPage(page, size);
-        List<ConOrder> conOrderList = conOrderService.findByCondition(condition);
+        List<ConOrder> conOrderList = new ArrayList<>();
+        try {
+            conOrderList = conOrderService.findByCondition(condition);
+        }catch (Exception e){
+        }
         PageInfo pageInfo = new PageInfo(conOrderList);
+
 
         //3、封装具体信息
         List<ConstructionPojo> constructionPojoList = new ArrayList<>();

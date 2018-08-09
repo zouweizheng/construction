@@ -23,6 +23,7 @@ public class TokenFilter implements HandlerInterceptor {
             throws Exception {
         System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
         String token = request.getParameter("token");
+        if(null==token||"".equals(token)) return setResponse(response);
         TokenPojo tokenPojo = new TokenPojo();
         String salt = tokenPojo.getSalt();
         long currentTime = System.currentTimeMillis();

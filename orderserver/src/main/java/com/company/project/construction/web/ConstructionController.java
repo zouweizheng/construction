@@ -16,10 +16,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/10/29.
@@ -76,22 +75,50 @@ public class ConstructionController {
     }
 
     @GetMapping("/getTotal")
-    public Result getTotal(@RequestParam String projectName, @RequestParam(required = false) String motorcadeId,  @RequestParam(required = false) String motorcadeName,  @RequestParam(required = false) String workType,  @RequestParam(required = false) String createPerson,  @RequestParam(required = false) Date startTime,  @RequestParam(required = false) Date endTime){
+    public Result getTotal(@RequestParam String projectName, @RequestParam(required = false) String motorcadeId,  @RequestParam(required = false) String motorcadeName,  @RequestParam(required = false) String workType,  @RequestParam(required = false) String createPerson,  @RequestParam(required = false) String startTime,  @RequestParam(required = false) String endTime){
 
         /*ConOrder conOrder = new ConOrder();
         Condition condition = new Condition(conOrder.getClass());
         condition.and();*/
         Map map = new HashMap();
+        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date startTimeDate = formatter.parse(startTime);
+            map.put("startTime",startTimeDate);
+        } catch (Exception e) {
+            map.put("startTime","");
+        }
+        try {
+            Date endTimeDate = formatter.parse(endTime);
+            map.put("endTime",endTimeDate);
+        } catch (Exception e) {
+            map.put("endTime","");
+        }*/
+        map.put("startTime",startTime);
+        map.put("endTime",endTime);
         map.put("projectName",projectName);
         map.put("motorcadeId",motorcadeId);
         map.put("motorcadeName",motorcadeName);
         map.put("workType",workType);
         map.put("createPerson",createPerson);
-        map.put("startTime",startTime);
-        map.put("endTime",endTime);
         Map totalInfo = constructionService.getTotalInfo(map);
-        map.putAll(totalInfo);
-        return ResultGenerator.genSuccessResult(map);
+        totalInfo.putAll(map);
+        /*List returnInfo = new ArrayList();
+        for (Object in : map.keySet()) {
+             Map returnMap = new HashMap();
+             map.put("key",in);
+             if("startTime".equals(in)&&!"".equals(map.get(in))){
+                 map.put("value",startTime);
+             }
+            else if("endTime".equals(in)&&!"".equals(map.get(in))){
+                 map.put("value",endTime);
+            }
+            else {
+                 map.put("value",map.get(in));
+             }
+             returnInfo.add(returnMap);
+            }*/
+        return ResultGenerator.genSuccessResult(totalInfo);
     }
 
 

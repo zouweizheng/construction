@@ -59,10 +59,10 @@
         and  create_person_id= #{createPerson}
       </if>
       <if test='startTime!= null and startTime!= ""'>
-        and  create_time > #{startTime}
+        and  DATE_FORMAT(create_time, '%Y-%m-%d') > DATE_FORMAT(#{startTime}, '%Y-%m-%d')
       </if>
       <if test='endTime!= null and endTime!= ""'>
-        and   #{endTime} > create_time
+        and   DATE_FORMAT(#{endTime}, '%Y-%m-%d') > DATE_FORMAT(create_time, '%Y-%m-%d')
       </if>
     </where>
   </select>
