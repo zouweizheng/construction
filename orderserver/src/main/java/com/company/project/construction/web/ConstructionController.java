@@ -16,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -103,22 +104,41 @@ public class ConstructionController {
         map.put("createPerson",createPerson);
         Map totalInfo = constructionService.getTotalInfo(map);
         totalInfo.putAll(map);
-        /*List returnInfo = new ArrayList();
-        for (Object in : map.keySet()) {
-             Map returnMap = new HashMap();
-             map.put("key",in);
-             if("startTime".equals(in)&&!"".equals(map.get(in))){
-                 map.put("value",startTime);
-             }
-            else if("endTime".equals(in)&&!"".equals(map.get(in))){
-                 map.put("value",endTime);
-            }
-            else {
-                 map.put("value",map.get(in));
-             }
-             returnInfo.add(returnMap);
-            }*/
-        return ResultGenerator.genSuccessResult(totalInfo);
+        List returnInfo = new ArrayList();
+        DecimalFormat df = new DecimalFormat("#");
+        Map projectNameMap = new HashMap();
+        projectNameMap.put("lableName","项目名称");
+        projectNameMap.put("lableValue",projectName);
+        Map motorcadeIdMap = new HashMap();
+        motorcadeIdMap.put("lableName","ID");
+        motorcadeIdMap.put("lableValue",motorcadeId);
+        Map motorcadeNameMap = new HashMap();
+        motorcadeNameMap.put("lableName","供应商");
+        motorcadeNameMap.put("lableValue",motorcadeName);
+        Map workTypeMap = new HashMap();
+        workTypeMap.put("lableName","工作类型");
+        workTypeMap.put("lableValue",workType);
+        Map createPersonMap = new HashMap();
+        createPersonMap.put("lableName","创建人");
+        createPersonMap.put("lableValue",createPerson);
+        Map timeArea = new HashMap();
+        timeArea.put("lableName","时间范围");
+        timeArea.put("lableValue",startTime+"至"+endTime);
+        Map totalNumMap = new HashMap();
+        totalNumMap.put("lableName","总数量");
+        totalNumMap.put("lableValue",df.format(totalInfo.get("totalNum")).toString()+"元");
+        Map totalMoneyMap = new HashMap();
+        totalMoneyMap.put("lableName","总金额");
+        totalMoneyMap.put("lableValue",df.format(totalInfo.get("totalMoney")).toString()+"元");
+        returnInfo.add(projectNameMap);
+        returnInfo.add(motorcadeIdMap);
+        returnInfo.add(motorcadeNameMap);
+        returnInfo.add(workTypeMap);
+        returnInfo.add(createPersonMap);
+        returnInfo.add(timeArea);
+        returnInfo.add(totalNumMap);
+        returnInfo.add(totalMoneyMap);
+        return ResultGenerator.genSuccessResult(returnInfo);
     }
 
 
