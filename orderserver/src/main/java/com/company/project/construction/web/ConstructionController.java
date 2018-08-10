@@ -103,8 +103,11 @@ public class ConstructionController {
         map.put("workType",workType);
         map.put("createPerson",createPerson);
         Map totalInfo = constructionService.getTotalInfo(map);
-        totalInfo.putAll(map);
-        List returnInfo = new ArrayList();
+        DecimalFormat df = new DecimalFormat("#");
+        map.put("totalNum",df.format(totalInfo.get("totalNum")).toString()+"元");
+        map.put("totalMoney",df.format(totalInfo.get("totalMoney")).toString()+"元");
+        //totalInfo.putAll(map);
+        /*List returnInfo = new ArrayList();
         DecimalFormat df = new DecimalFormat("#");
         Map projectNameMap = new HashMap();
         projectNameMap.put("lableName","项目名称");
@@ -137,8 +140,8 @@ public class ConstructionController {
         returnInfo.add(createPersonMap);
         returnInfo.add(timeArea);
         returnInfo.add(totalNumMap);
-        returnInfo.add(totalMoneyMap);
-        return ResultGenerator.genSuccessResult(returnInfo);
+        returnInfo.add(totalMoneyMap);*/
+        return ResultGenerator.genSuccessResult(map);
     }
 
 
