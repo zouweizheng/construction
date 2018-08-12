@@ -1,6 +1,7 @@
 package com.company.project.construction.web;
 
 
+import com.company.project.common.pojo.ConfigInfo;
 import com.company.project.construction.mapper.ConOrderExtMapper;
 import com.company.project.construction.pojo.ConstructionPojo;
 import com.company.project.construction.service.ConstructionService;
@@ -12,6 +13,7 @@ import com.company.project.foundation.core.ResultGenerator;
 import com.company.project.foundation.model.ConOrder;
 import com.company.project.foundation.service.ConOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
@@ -34,6 +36,9 @@ public class ConstructionController {
     @Autowired
     ConstructionService constructionService;
 
+    @Autowired
+    CacheManager cacheManager;
+
 
     @Autowired
     ApplicationContext applicationContext;
@@ -41,6 +46,22 @@ public class ConstructionController {
 
     @PostMapping("/setCon")
     public Result setCon(@RequestBody ConstructionPojo constructionPojo) {
+        int repeatTime = 10;
+        try {
+            ConfigInfo repeatTimeConfigInfo = getConfig("RepeatTime");
+            String repeatTimeStr = repeatTimeConfigInfo.getConfigValue();
+            if(!(null==repeatTimeStr||"".equals(repeatTimeStr))){
+                try {
+                    repeatTime = Integer.parseInt(repeatTimeStr);
+                }catch (Exception e){
+                }
+            }
+        }catch (Exception e){
+        }
+
+        if(constructionService.isRepeatOrder(constructionPojo,repeatTime)){
+            return ResultGenerator.genFailResult("重复提单！");
+        }
         AbstractService constructionService = applicationContext.getBean("ConstructionService",AbstractService.class);
         String orderId = constructionService.setOrder(constructionPojo);
         return ResultGenerator.genSuccessResult(orderId);
@@ -73,6 +94,12 @@ public class ConstructionController {
         conOrder.setPrintNum(++printNum);
         conOrderService.update(conOrder);
         return ResultGenerator.genSuccessResult(conOrder);
+    }
+
+
+    @GetMapping("/getConfig")
+    public ConfigInfo getConfig(@RequestParam String configKey){
+       return constructionService.getConfig(configKey);
     }
 
     @GetMapping("/getTotal")
