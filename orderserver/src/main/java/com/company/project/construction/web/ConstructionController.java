@@ -2,10 +2,10 @@ package com.company.project.construction.web;
 
 
 import com.company.project.common.pojo.ConfigInfo;
-import com.company.project.construction.mapper.ConOrderExtMapper;
 import com.company.project.construction.pojo.ConstructionPojo;
 import com.company.project.construction.service.ConstructionService;
 import com.company.project.core.pojo.ApiResult;
+import com.company.project.core.pojo.CodeResult;
 import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.service.AbstractService;
 import com.company.project.foundation.core.Result;
@@ -16,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/29.
@@ -68,7 +67,25 @@ public class ConstructionController {
     }
 
     @PostMapping("/insertOrder")
-    public ApiResult<TaskAndOrder> insertOrder(@RequestBody ConstructionPojo constructionPojo , @RequestAttribute String tid,@RequestAttribute String userId) throws Exception {
+    public CodeResult<TaskAndOrder> insertOrder(@RequestBody ConstructionPojo constructionPojo , @RequestAttribute String tid,@RequestAttribute String userId) throws Exception {
+        int repeatTime = 10;
+        try {
+            ConfigInfo repeatTimeConfigInfo = getConfig("RepeatTime");
+            String repeatTimeStr = repeatTimeConfigInfo.getConfigValue();
+            if(!(null==repeatTimeStr||"".equals(repeatTimeStr))){
+                try {
+                    repeatTime = Integer.parseInt(repeatTimeStr);
+                }catch (Exception e){
+                }
+            }
+        }catch (Exception e){
+        }
+        CodeResult<TaskAndOrder> apiResult = new CodeResult<TaskAndOrder>();
+        if(constructionService.isRepeatOrder(constructionPojo,repeatTime)){
+            apiResult.setErrcode(602);
+            apiResult.setErrmsg("重复提单");
+            return apiResult;
+        }
         AbstractService constructionService = applicationContext.getBean("ConstructionService",AbstractService.class);
         Map map = new HashMap<>();
         map.put("createPerson",userId);
@@ -76,7 +93,7 @@ public class ConstructionController {
         Date date = new Date();
         constructionPojo.getConOrder().setCreateTime(date);
         TaskAndOrder orderId = constructionService.insertModel(constructionPojo,map,tid);
-        ApiResult<TaskAndOrder> apiResult = new ApiResult<TaskAndOrder>();
+
         apiResult.setBody(orderId);
         return apiResult;
     }
