@@ -17,7 +17,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +70,35 @@ public class ConstructionController {
     }
 
     @PostMapping("/insertOrder")
-    public CodeResult<TaskAndOrder> insertOrder(@RequestBody ConstructionPojo constructionPojo , @RequestAttribute String tid,@RequestAttribute String userId) throws Exception {
+    public CodeResult<TaskAndOrder> insertOrder(@RequestBody ConstructionPojo constructionPojo , @RequestAttribute String tid, @RequestAttribute String userId, HttpServletRequest request) throws Exception {
+        //通过token判断是否1秒内有重复请求
+        String token = request.getParameter("token");
+        HttpSession session = request.getSession();
+        Object lastTimeObj = session.getAttribute(token);
+        CodeResult<TaskAndOrder> apiResult = new CodeResult<TaskAndOrder>();
+        Date nowTime = new Date();
+        if(null!=lastTimeObj){
+            try{
+                System.out.print("token上次时间为："+lastTimeObj);
+                Date lastTime = (Date) lastTimeObj;
+                Calendar lastTimeCal = Calendar.getInstance();
+                lastTimeCal.setTime(lastTime);
+                Calendar c = Calendar.getInstance();
+                c.setTime(nowTime);
+                c.add(Calendar.SECOND, -2);
+                if(c.compareTo(lastTimeCal)<0){
+                    session.setAttribute(token,nowTime);
+                    System.out.print("由token防重复提交命中！");
+                    apiResult.setErrcode(602);
+                    apiResult.setErrmsg("提单过于频繁！");
+                    return apiResult;
+                }
+            }catch (Exception e){
+                System.out.print(e.toString());
+            }
+        }
+        session.setAttribute(token,nowTime);
+        //判断数据库是否有重复单
         int repeatTime = 10;
         try {
             ConfigInfo repeatTimeConfigInfo = getConfig("RepeatTime");
@@ -80,12 +111,12 @@ public class ConstructionController {
             }
         }catch (Exception e){
         }
-        CodeResult<TaskAndOrder> apiResult = new CodeResult<TaskAndOrder>();
         if(constructionService.isRepeatOrder(constructionPojo,repeatTime)){
             apiResult.setErrcode(602);
             apiResult.setErrmsg("重复提单");
             return apiResult;
         }
+        //正常业务操作
         AbstractService constructionService = applicationContext.getBean("ConstructionService",AbstractService.class);
         Map map = new HashMap<>();
         map.put("createPerson",userId);
