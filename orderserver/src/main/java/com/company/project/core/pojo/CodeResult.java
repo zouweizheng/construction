@@ -23,20 +23,20 @@ public class CodeResult<T> {
 		this.body = body;
 	}
 
-	public Integer getErrcode() {
+	public Integer getCode() {
         return code;
     }
 
-    public void setErrcode(Integer errcode) {
-        this.code = errcode;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public String getErrmsg() {
+    public String getMessage() {
         return message;
     }
 
-    public void setErrmsg(String errmsg) {
-        this.message = errmsg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
