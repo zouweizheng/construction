@@ -89,8 +89,8 @@ public class ConstructionController {
                 if(c.compareTo(lastTimeCal)<0){
                     session.setAttribute(token,nowTime);
                     System.out.print("由token防重复提交命中！");
-                    apiResult.setErrcode(602);
-                    apiResult.setErrmsg("提单过于频繁！");
+                    apiResult.setCode(602);
+                    apiResult.setMessage("提单过于频繁！");
                     return apiResult;
                 }
             }catch (Exception e){
@@ -112,9 +112,10 @@ public class ConstructionController {
         }catch (Exception e){
         }
         if(constructionService.isRepeatOrder(constructionPojo,repeatTime)){
-            apiResult.setErrcode(602);
-            apiResult.setErrmsg("重复提单");
-            return apiResult;
+            CodeResult repeatResult = new CodeResult();
+            repeatResult.setCode(602);
+            repeatResult.setMessage("重复提单");
+            return repeatResult;
         }
         //正常业务操作
         AbstractService constructionService = applicationContext.getBean("ConstructionService",AbstractService.class);
