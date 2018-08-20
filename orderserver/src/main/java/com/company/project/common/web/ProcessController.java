@@ -41,10 +41,29 @@ public class ProcessController {
         return ResultGenerator.genSuccessResult(taskInfo);
     }
 
-    @PostMapping("/commitAndClaim")
+    /*@PostMapping("/commitAndClaim")
     public Result commitAndClaim(@RequestBody ClaimInfo claimInfo, @RequestAttribute String tid , @RequestParam String orderType) {
+        OrderConfigInfo orderConfigInfo = applicationContext.getBean(TypeReflect.getOrderConfigInfoReflect(orderType), OrderConfigInfo.class);
         AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType), AbstractService.class);
+        claimInfo.setProcessDefinitionId(orderConfigInfo.getProcessDefinitionId());
         TaskInfo taskInfo = orderService.commitAndClaim(claimInfo,tid);
         return ResultGenerator.genSuccessResult(taskInfo);
+    }*/
+
+    @PostMapping("/sendBack")
+    public Result sendBack(@RequestBody ClaimInfo claimInfo ,@RequestAttribute String userId, @RequestParam String orderType) throws Exception {
+        //回退
+        OrderConfigInfo orderConfigInfo = applicationContext.getBean(TypeReflect.getOrderConfigInfoReflect(orderType), OrderConfigInfo.class);
+        AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType), AbstractService.class);
+        claimInfo.setUserId(userId);
+        claimInfo.setProcessDefinitionId(orderConfigInfo.getProcessDefinitionId());
+        TaskInfo taskInfo = orderService.commit(claimInfo,"");
+        //签收
+        String newTaskId = taskInfo.getTaskId();
+        claimInfo.setUserId(userId);
+        claimInfo.setTaskId(newTaskId);
+        claimInfo.setProcessDefinitionId(orderConfigInfo.getProcessDefinitionId());
+        Boolean isClaim = orderService.claim(claimInfo,"");
+        return ResultGenerator.genSuccessResult(isClaim);
     }
 }

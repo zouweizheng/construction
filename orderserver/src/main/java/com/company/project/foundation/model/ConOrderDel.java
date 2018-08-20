@@ -3,8 +3,8 @@ package com.company.project.foundation.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "con_order")
-public class ConOrder {
+@Table(name = "con_order_del")
+public class ConOrderDel {
     /**
      * 主键id
      */

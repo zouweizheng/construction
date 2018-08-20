@@ -40,5 +40,6 @@
     <result column="is_bind" jdbcType="VARCHAR" property="isBind" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
 </mapper>

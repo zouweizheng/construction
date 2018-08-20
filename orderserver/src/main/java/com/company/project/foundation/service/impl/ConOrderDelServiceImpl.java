@@ -1,8 +1,8 @@
 package com.company.project.foundation.service.impl;
 
-import com.company.project.foundation.dao.OpOrderMapper;
-import com.company.project.foundation.model.OpOrder;
-import com.company.project.foundation.service.OpOrderService;
+import com.company.project.foundation.dao.ConOrderDelMapper;
+import com.company.project.foundation.model.ConOrderDel;
+import com.company.project.foundation.service.ConOrderDelService;
 import com.company.project.foundation.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +15,8 @@ import javax.annotation.Resource;
  */
 @Service
 @Transactional
-public class OpOrderServiceImpl extends AbstractService<OpOrder> implements OpOrderService {
+public class ConOrderDelServiceImpl extends AbstractService<ConOrderDel> implements ConOrderDelService {
     @Resource
-    private OpOrderMapper opOrderMapper;
+    private ConOrderDelMapper conOrderDelMapper;
 
 }

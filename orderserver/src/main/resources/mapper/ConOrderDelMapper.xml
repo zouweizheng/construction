@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.company.project.foundation.dao.MixMapper">
-  <resultMap id="BaseResultMap" type="Map">
+<mapper namespace="com.company.project.foundation.dao.ConOrderDelMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.foundation.model.ConOrderDel">
     <!--
       WARNING - @mbg.generated
     -->
@@ -40,33 +40,6 @@
     <result column="is_bind" jdbcType="VARCHAR" property="isBind" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
-
-  <select id="getTotalNum" resultType="Map">
-    SELECT  ifnull(SUM(num),0) as totalNum, ifnull(SUM(money),0) as totalMoney FROM con_order
-    <where>
-      project_name = #{projectName}
-      <if test='motorcadeId!= null and motorcadeId!= ""'>
-        and  motorcade_id= #{motorcadeId}
-      </if>
-      <if test='motorcadeName!= null and motorcadeName!= ""'>
-        and  motorcade_name= #{motorcadeName}
-      </if>
-      <if test='workType!= null and workType!= ""'>
-        and  work_type= #{workType}
-      </if>
-      <if test='createPersonName!= null and createPersonName!= ""'>
-        and  create_person_name= #{createPersonName}
-      </if>
-      <if test='feeType!= null and feeType!= ""'>
-        and  fee_type= #{feeType}
-      </if>
-      <if test='startTime!= null and startTime!= ""'>
-        and  DATE_FORMAT(create_time, '%Y-%m-%d') > DATE_FORMAT(#{startTime}, '%Y-%m-%d')
-      </if>
-      <if test='endTime!= null and endTime!= ""'>
-        and   DATE_FORMAT(#{endTime}, '%Y-%m-%d') > DATE_FORMAT(create_time, '%Y-%m-%d')
-      </if>
-    </where>
-  </select>
 </mapper>

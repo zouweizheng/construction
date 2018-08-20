@@ -256,6 +256,10 @@ public class NewActivitiUtil {
     {
         return postData( parameters,url+"/process/completeandclaimtask?Tid="+Tid);
     }
+    public static ApiResult completeandclaimTask(String url, JSONObject parameters, String Tid)
+    {
+        return postData( parameters,url+"/process/completeandclaimtask?Tid="+Tid);
+    }
 
     /**
      * 查找taskId

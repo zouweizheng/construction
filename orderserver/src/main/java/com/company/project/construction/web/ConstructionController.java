@@ -8,6 +8,7 @@ import com.company.project.core.pojo.ApiResult;
 import com.company.project.core.pojo.CodeResult;
 import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.service.AbstractService;
+import com.company.project.core.util.NewActivitiUtil;
 import com.company.project.foundation.core.Result;
 import com.company.project.foundation.core.ResultGenerator;
 import com.company.project.foundation.model.ConOrder;
@@ -19,11 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/29.
@@ -47,7 +47,7 @@ public class ConstructionController {
 
 
     @PostMapping("/setCon")
-    public Result setCon(@RequestBody ConstructionPojo constructionPojo) {
+    public Result setCon(@RequestBody ConstructionPojo constructionPojo) throws AWTException {
         int repeatTime = 10;
         try {
             ConfigInfo repeatTimeConfigInfo = getConfig("RepeatTime");
@@ -71,6 +71,15 @@ public class ConstructionController {
 
     @PostMapping("/insertOrder")
     public CodeResult<TaskAndOrder> insertOrder(@RequestBody ConstructionPojo constructionPojo , @RequestAttribute String tid, @RequestAttribute String userId, HttpServletRequest request) throws Exception {
+        //随机时延
+        //System.out.println( "延时前:"+new Date().toString()  );
+        Random rand = new Random();
+        try {
+            Thread.sleep(rand.nextInt(100) + 1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //System.out.println(   "延时后:"+new Date().toString()   );
         //通过token判断是否1秒内有重复请求
         String token = request.getParameter("token");
         HttpSession session = request.getSession();
@@ -151,8 +160,27 @@ public class ConstructionController {
        return constructionService.getConfig(configKey);
     }
 
-    @GetMapping("/getTotal")
-    public Result getTotal(@RequestParam String projectName, @RequestParam(required = false) String motorcadeId,  @RequestParam(required = false) String motorcadeName,  @RequestParam(required = false) String workType,  @RequestParam(required = false) String createPerson,  @RequestParam(required = false) String startTime,  @RequestParam(required = false) String endTime){
+    @GetMapping("/getAnalysisTab")
+    public Result getAnalysisTab(@RequestAttribute String userId){
+        return ResultGenerator.genSuccessResult(constructionService.getAnalysisTab(userId));
+    }
+
+    @GetMapping("/deleteCon")
+    public Result deleteCon(@RequestAttribute String userId, @RequestParam Integer id, @RequestParam String deleteReason) {
+        Boolean isDel = null;
+        try {
+            isDel = constructionService.deleteCon(userId,id,deleteReason);
+        } catch (Exception e) {
+            isDel = false;
+        }
+        if(isDel){
+            return ResultGenerator.genSuccessResult("删除成功！");
+        }
+        else return ResultGenerator.genFailResult("删除失败！");
+    }
+
+    @GetMapping("/getAnalysis")
+    public Result getTotal(@RequestParam String projectName, @RequestParam(required = false) String motorcadeId,  @RequestParam(required = false) String motorcadeName,  @RequestParam(required = false) String feeType,@RequestParam(required = false) String workType,  @RequestParam(required = false) String createPersonName,  @RequestParam(required = false) String startTime,  @RequestParam(required = false) String endTime){
 
         /*ConOrder conOrder = new ConOrder();
         Condition condition = new Condition(conOrder.getClass());
@@ -177,7 +205,9 @@ public class ConstructionController {
         map.put("motorcadeId",motorcadeId);
         map.put("motorcadeName",motorcadeName);
         map.put("workType",workType);
-        map.put("createPerson",createPerson);
+        map.put("feeType",feeType);
+
+        map.put("createPersonName",createPersonName);
         Map totalInfo = constructionService.getTotalInfo(map);
         DecimalFormat df = new DecimalFormat("#");
         map.put("totalNum",df.format(totalInfo.get("totalNum")).toString()+"元");

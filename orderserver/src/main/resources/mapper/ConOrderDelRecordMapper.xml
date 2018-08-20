@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.foundation.dao.ConOrderDelRecordMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.foundation.model.ConOrderDelRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="delete_time" jdbcType="DATE" property="deleteTime" />
+    <result column="delete_person" jdbcType="VARCHAR" property="deletePerson" />
+    <result column="delete_reason" jdbcType="VARCHAR" property="deleteReason" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="num" jdbcType="DOUBLE" property="num" />
+    <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
+    <result column="machine_type" jdbcType="VARCHAR" property="machineType" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="deal_type" jdbcType="VARCHAR" property="dealType" />
+  </resultMap>
+</mapper>

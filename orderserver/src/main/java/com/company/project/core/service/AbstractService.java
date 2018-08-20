@@ -1,6 +1,8 @@
 package com.company.project.core.service;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.company.project.foundation.dao.MixMapper;
 import com.company.project.construction.pojo.ClaimInfo;
 import com.company.project.core.mapper.OrderMapper;
@@ -237,7 +239,7 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
 
     @Override
     public TaskInfo commitAndClaim(ClaimInfo claimInfo, String Tid) {
-        ApiResult<TaskInfo> apiResult = NewActivitiUtil.completeandclaimTask(activitiUrl,(Map)claimInfo,Tid);
+        ApiResult<TaskInfo> apiResult = NewActivitiUtil.completeandclaimTask(activitiUrl, JSON.parseObject(JSONObject.toJSONString(claimInfo)),Tid);
         if(0==apiResult.getErrcode()) return apiResult.getBody();
         return null;
     }

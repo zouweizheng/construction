@@ -15,4 +15,31 @@ import org.springframework.stereotype.Service;
 @Service("ConstructionConfigInfo")
 public class ConstructionConfigInfo extends OrderConfigInfo{
 
+    private String historyProjectGroup;
+    private String currentProjectGroup;
+    private String analysisGroup;
+
+    public String getHistoryProjectGroup() {
+        return historyProjectGroup;
+    }
+
+    public void setHistoryProjectGroup(String historyProjectGroup) {
+        this.historyProjectGroup = historyProjectGroup;
+    }
+
+    public String getCurrentProjectGroup() {
+        return currentProjectGroup;
+    }
+
+    public void setCurrentProjectGroup(String currentProjectGroup) {
+        this.currentProjectGroup = currentProjectGroup;
+    }
+
+    public String getAnalysisGroup() {
+        return analysisGroup;
+    }
+
+    public void setAnalysisGroup(String analysisGroup) {
+        this.analysisGroup = analysisGroup;
+    }
 }
