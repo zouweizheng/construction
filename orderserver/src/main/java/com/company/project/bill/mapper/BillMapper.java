@@ -4,8 +4,10 @@ import com.company.project.bill.pojo.BillPojo;
 import com.company.project.bill.service.BillService;
 import com.company.project.construction.pojo.ClaimInfo;
 import com.company.project.core.mapper.OrderImplMapper;
+import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.pojo.TaskInfo;
 import com.company.project.core.util.GenerateSeriesID;
+import com.company.project.core.util.MapToObjectUtil;
 import com.company.project.foundation.model.*;
 import com.company.project.foundation.service.BiOrderOpOperationService;
 import com.company.project.foundation.service.BiOrderService;
@@ -13,14 +15,14 @@ import com.company.project.foundation.service.ConOrderService;
 import com.company.project.foundation.service.OpOperationService;
 import com.company.project.operation.pojo.OperationPojo;
 import com.company.project.test.TestService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/10/29.
@@ -67,6 +69,56 @@ public class BillMapper extends OrderImplMapper<BillPojo> {
     @PostConstruct
     public void init(){
         System.out.println("test");
+    }
+
+    @Override
+    public PageInfo getOrderList(List<Map> taskInfoList, String searchWord, Integer page, Integer size) {
+        //1、获取所有orderId，2、封装单独的taskInfo
+        TaskInfo taskInfo = new TaskInfo();
+        List<String> orderIds = new ArrayList<>();
+        Map<String,TaskInfo> taskInfoMap = new HashMap<>();
+        for(Map map : taskInfoList){
+            try {
+                taskInfo = MapToObjectUtil.mapperObj(map,taskInfo.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
+            String orderId = taskInfo.getBusinessKey();
+            if("".equals(orderId)||null==orderId) continue;
+            orderIds.add(taskInfo.getBusinessKey());
+            if(taskInfoMap.containsKey(orderId)) continue;
+            taskInfoMap.put(orderId,taskInfo);
+        }
+        //2、查找信息
+        BiOrder biOrder = new BiOrder();
+        Condition condition = new Condition(biOrder.getClass());
+        condition.and().andIn("billId",orderIds);
+        if(!"".equals(searchWord)){
+            condition.and().orLike("orderId","%"+searchWord+"%").orLike("orderName","%"+searchWord+"%").orLike("belongPersonName","%"+searchWord+"%").orLike("belongPersonId","%"+searchWord+"%").orLike("createPersonId","%"+searchWord+"%");
+        }
+        //condition.setOrderByClause("create_time desc limit " + startNum + "," + size);
+        condition.setOrderByClause("create_time desc");
+        PageHelper.startPage(page, size);
+        List<BiOrder> biOrderList = new ArrayList<>();
+        try {
+            biOrderList = biOrderService.findByCondition(condition);
+        }catch (Exception e){
+        }
+        PageInfo pageInfo = new PageInfo(biOrderList);
+        //3、封装具体信息
+        List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
+        for(BiOrder biOrderGet : biOrderList){
+            String orderId = biOrderGet.getBillId();
+            TaskAndOrder taskAndOrder = new TaskAndOrder();
+            taskAndOrder.setOrderPojo(getOrderInfo(orderId));
+            taskAndOrder.setTaskInfo(taskInfoMap.get(orderId));
+            taskAndOrder.setOrderId(orderId);
+            taskAndOrderList.add(taskAndOrder);
+        }
+        //4、封装分页信息
+        pageInfo.setList(taskAndOrderList);
+        return pageInfo;
     }
 
     @Override

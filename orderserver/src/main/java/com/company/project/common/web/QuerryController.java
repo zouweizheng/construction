@@ -61,7 +61,6 @@ public class QuerryController {
             PageInfo pageInfo = orderService.getGroupWait(userId, tid,searchWord,page,size);
             return ResultGenerator.genSuccessResult(pageInfo);
         }
-
     }
 
     @GetMapping("/nodeOrder")
@@ -113,6 +112,13 @@ public class QuerryController {
         AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType),AbstractService.class);
         List getAllResult =  orderService.getOrderByTime(startTimeTran,endTimeTran);
         return ResultGenerator.genSuccessResult(getAllResult);
+    }
+
+    @RequestMapping(value="/getAllOrderWithPage", method = RequestMethod.POST)
+    public Result getAllOrderWithPage(@RequestParam String orderType,@RequestBody Map queryCriteria, @RequestAttribute String userId, @RequestAttribute String tid,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+        AbstractService orderService = applicationContext.getBean(TypeReflect.getOrderTypeReflect(orderType),AbstractService.class);
+        PageInfo pageInfo = orderService.getOrders(queryCriteria,page,size);
+        return ResultGenerator.genSuccessResult(pageInfo);
     }
 
 

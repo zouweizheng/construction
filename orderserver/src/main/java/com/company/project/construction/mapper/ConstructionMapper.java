@@ -6,6 +6,7 @@ import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.pojo.TaskInfo;
 import com.company.project.core.util.GenerateSeriesID;
 import com.company.project.core.util.MapToObjectUtil;
+import com.company.project.foundation.dao.MixMapper;
 import com.company.project.test.TestService;
 import com.company.project.core.mapper.OrderImplMapper;
 import com.company.project.foundation.model.ConOrder;
@@ -30,6 +31,7 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
 
     @Autowired
     TestService testService;
+
 
     @Override
     public String setOrder(ConstructionPojo constructionPojo) {
@@ -93,7 +95,7 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
         Condition condition = new Condition(conOrder.getClass());
         condition.and().andIn("orderId",orderIds);
         if(!"".equals(searchWord)){
-            condition.and().orLike("orderId","%"+searchWord+"%").orLike("orderName","%"+searchWord+"%").orLike("projectName","%"+searchWord+"%").orLike("motorcadeId","%"+searchWord+"%").orLike("motorcadeId","%"+searchWord+"%");
+            condition.and().orLike("orderId","%"+searchWord+"%").orLike("orderName","%"+searchWord+"%").orLike("projectName","%"+searchWord+"%").orLike("motorcadeId","%"+searchWord+"%").orLike("motorcadeName","%"+searchWord+"%").orLike("feeType","%"+searchWord+"%").orLike("workType","%"+searchWord+"%").orLike("destinationName","%"+searchWord+"%").orLike("machineType","%"+searchWord+"%");
         }
         //condition.setOrderByClause("create_time desc limit " + startNum + "," + size);
         condition.setOrderByClause("create_time desc");
@@ -104,7 +106,6 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
         }catch (Exception e){
         }
         PageInfo pageInfo = new PageInfo(conOrderList);
-
 
         //3、封装具体信息
         List<ConstructionPojo> constructionPojoList = new ArrayList<>();
@@ -123,6 +124,40 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
         //4、封装分页信息
         pageInfo.setList(taskAndOrderList);
         return pageInfo;
+    }
+
+
+    /**
+     * 根据查询条件获取所有的分页的工单数据
+     * @param queryCriteria
+     * @param page
+     * @param size
+     * @return
+     */
+    public PageInfo getOrderListByQueryCriteria(Map queryCriteria, Integer page, Integer size) {
+        //1、查找信息
+        ConOrder conOrder = new ConOrder();
+        Condition condition = new Condition(conOrder.getClass());
+        createSqlCondition(condition,queryCriteria);
+        PageHelper.startPage(page, size);
+        List<ConOrder> conOrderList = new ArrayList<>();
+        try {
+            conOrderList = conOrderService.findByCondition(condition);
+        }catch (Exception e){
+        }
+        PageInfo pageInfo = new PageInfo(conOrderList);
+        //2、封装分页信息
+        pageInfo.setList(conOrderList);
+        return pageInfo;
+    }
+
+    /**
+     * 根据查询条件投照查询condition
+     * @param condition
+     * @param queryCriteria
+     */
+    private void createSqlCondition(Condition condition,Map queryCriteria){
+        condition.setOrderByClause("create_time desc");
     }
 
     @PostConstruct

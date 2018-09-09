@@ -262,6 +262,16 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     }
 
     /**
+     * 根据输入的条件获取所有工单
+     * @return
+     */
+    @Override
+    public PageInfo getOrders(Map queryCriteria, Integer page, Integer size) {
+        PageInfo orderPojoList = orderImplMapper.getOrderListByQueryCriteria(queryCriteria,page,size);
+        return orderPojoList;
+    }
+
+    /**
      * 根据流程列表获取工单和流程信息
      * @param taskList
      * @return
@@ -368,6 +378,15 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     public Map getTotalInfo(Map inputMap){
         Map totalInfo = mixMapper.getTotalNum(inputMap);
         return totalInfo;
+    }
+
+    public List getTotalInfoGroupByWorkType(Map inputMap){
+        List totalInfoList = mixMapper.getTotalInfoGroupByWorkType(inputMap);
+        return totalInfoList;
+    }
+    public List getAllCon(Map inputMap){
+        List totalInfoList = mixMapper.getAllCon(inputMap);
+        return totalInfoList;
     }
 
 

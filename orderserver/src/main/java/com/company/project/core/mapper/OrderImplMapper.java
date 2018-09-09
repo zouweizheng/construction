@@ -68,4 +68,9 @@ public  class OrderImplMapper<OrderPojo> implements OrderMapper<OrderPojo> {
     public PageInfo getOrderList(List<Map> taskInfoList, String searchWord, Integer page, Integer size) {
         return null;
     }
+
+    @Override
+    public PageInfo getOrderListByQueryCriteria(Map queryCriteria, Integer page, Integer size) {
+        return null;
+    }
 }

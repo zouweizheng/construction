@@ -30,4 +30,5 @@ public interface OrderMapper<OrderPojo>  {
     boolean doAfterCommit(ClaimInfo claimInfo , TaskInfo taskInfo);
     boolean setProInsId(String orderId , String proInsId);
     boolean setOrderStatus(String orderId , String orderStatus);
+    PageInfo getOrderListByQueryCriteria(Map queryCriteria, Integer page, Integer size);
 }

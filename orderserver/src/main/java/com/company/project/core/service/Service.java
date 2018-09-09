@@ -35,5 +35,6 @@ public interface Service<T,V> {
     String setOrder(OrderPojo orderPojo);//操作订单
     Map getOrderDetail(String orderId , String taskId,String userId ,String Tid);//获取工单详情
     List<TaskAndOrder>  getOrderByTime(Date startTime , Date endTime);//获取条件范围内的单据
+    PageInfo getOrders(Map queryCriteria, Integer page, Integer size);//获取条件范围内的单据
 
 }
