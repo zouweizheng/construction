@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfjd.mappers.MedalMixMapper">
+    <select id="queryHistoryTaskState" parameterType="Map" resultType="com.nfjd.pojo.mypojo.MixTask">
+        select ACT_HI_VARINST.TEXT_ as orderId,ACT_RU_TASK.NAME_ as nodeName,ACT_RU_TASK.ID_ as taskId,
+        ACT_RU_TASK.PROC_INST_ID_ as procInstId, ACT_RU_TASK. ASSIGNEE_ as assignee from ACT_HI_VARINST,ACT_RU_TASK
+        where ACT_HI_VARINST.PROC_INST_ID_=ACT_RU_TASK.PROC_INST_ID_ and  ACT_HI_VARINST.NAME_='orderId'
+        and ACT_HI_VARINST.PROC_INST_ID_ in
+        (select ACT_HI_TASKINST.PROC_INST_ID_ from ACT_HI_TASKINST where ASSIGNEE_=#{param1} and PROC_DEF_ID_=#{param2}) ORDER BY procInstId DESC ;
+        </select>
+
+
+    <select id="getTaskMixList" parameterType="List" resultType="Map">
+        select ACT_RU_VARIABLE.NAME_ , ACT_RU_VARIABLE.TEXT_ , ACT_RU_EXECUTION.BUSINESS_KEY_ ,ACT_RU_TASK.*
+        from ACT_RU_VARIABLE , ACT_RU_EXECUTION , ACT_RU_TASK where ACT_RU_EXECUTION.PROC_INST_ID_ = ACT_RU_VARIABLE.PROC_INST_ID_
+        and ACT_RU_VARIABLE.PROC_INST_ID_ = ACT_RU_TASK.PROC_INST_ID_ and ACT_RU_TASK.ID_ in #{param1} ORDER BY ACT_RU_TASK.ID_ DESC ;
+    </select>
+
+
+</mapper>

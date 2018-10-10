@@ -1,0 +1,15 @@
+spring:
+  profiles: yxb
+  datasource:
+    url: jdbc:mysql://rm-wz99n6r6h00g9v27uo.mysql.rds.aliyuncs.com:3306/yxb-test1?autoReconnect=true
+    username: zouweizheng
+    password: Zou123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+activiti: #自定义的属性和值
+  activitiRestUrl: prod
+  processId: zoutest:2:17166
+  password: ${aa.bb.cc}
+  hotelOrderRestUrl: http://localhost:10022/order
+  agentPerson: agentPerson
+

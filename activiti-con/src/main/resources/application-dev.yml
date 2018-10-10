@@ -1,0 +1,16 @@
+spring:
+  profiles: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://mysql.nj-itc.com.cn:3306/activiti?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: zhouweizheng
+    password: zwz1234
+    driver-class-name: com.mysql.jdbc.Driver
+    maxActive: 20
+
+activiti: #自定义的属性和值
+  activitiRestUrl: dev
+  processId: zoutest:2:17166
+  password: ${aa.bb.cc}
+  hotelOrderRestUrl: http://localhost:10022/order
+  agentPerson: agentPerson

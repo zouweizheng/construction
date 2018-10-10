@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!--导入属性配置 -->
+<!--
+    <properties resource="application.yml"></properties>
+-->
+    <classPathEntry
+            location="D:/.m2/repository/mysql/mysql-connector-java/5.1.20/mysql-connector-java-5.1.20.jar" />
+
+    <context id="context1" targetRuntime="MyBatis3">
+        <!-- optional，旨在创建class时，对注释进行控制 -->
+        <commentGenerator>
+            <property name="suppressDate" value="false" /><!-- 是否生成注释代时间戳-->
+            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
+        </commentGenerator>
+
+<!--
+        &lt;!&ndash; 类型转换 &ndash;&gt;
+        <javaTypeResolver>
+            &lt;!&ndash; 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） &ndash;&gt;
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+-->
+
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://mysql.nj-itc.com.cn:3306/activiti?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="zhouweizheng" password="zwz1234" >
+        </jdbcConnection>
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-wz99n6r6h00g9v27uo.mysql.rds.aliyuncs.com:3306/yxb_back2?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="zouweizheng" password="Zou123456" >
+        </jdbcConnection>-->
+
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.nfjd.domain"
+                            targetProject="src/main/java" >
+
+            <!-- 是否在当前路径下新加一层schema,eg：false路径com.nfjd.csmb.domain， true:com.nfjd.csmb.domain.[schemaName] -->
+            <property name="enableSubPackages" value="false"/>
+
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="true"/>
+
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+
+<!--
+            &lt;!&ndash; 给Model添加一个父类 &ndash;&gt;
+            <property name="rootClass" value="com.vlmap.model.AbstractModel"/>
+-->
+
+        </javaModelGenerator>
+
+        <!-- 生成mapxml文件 -->
+        <sqlMapGenerator targetPackage="mappers"
+                         targetProject="src/main/resources" >
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapxml对应client，也就是接口dao -->
+        <javaClientGenerator targetPackage="com.nfjd.mappers"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+
+        <table schema="activiti" tableName="ACT_HI_ACTINST" domainObjectName="ACT_HI_ACTINST"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false">
+            <generatedKey column="ID_" sqlStatement="MySql" identity="true"/>
+        </table>
+
+            </context>
+        </generatorConfiguration>
