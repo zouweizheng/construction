@@ -65,9 +65,14 @@ public class MapToObjectUtil<T> {
         }
         Object tobj=t.newInstance();
         for(Object key:map.keySet()){
-            Field field =t.getDeclaredField((String) key);
-            field.setAccessible(true);
-            field.set(tobj, map.get(key));
+            try{
+                Field field =t.getDeclaredField((String) key);
+                field.setAccessible(true);
+                field.set(tobj, map.get(key));
+            }catch (Exception e){
+                continue;
+            }
+
         }
         return (T) tobj;
     }

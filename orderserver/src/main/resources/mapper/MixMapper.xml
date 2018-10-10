@@ -48,7 +48,7 @@
       project_name = #{projectName}
       <if test='motorcadeId!= null and motorcadeId!= ""'>
         and  motorcade_id= #{motorcadeId}
-      </if>
+      </if>v
       <if test='motorcadeName!= null and motorcadeName!= ""'>
         and  motorcade_name= #{motorcadeName}
       </if>

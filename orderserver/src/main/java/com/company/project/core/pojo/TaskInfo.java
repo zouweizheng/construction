@@ -19,15 +19,13 @@ public class TaskInfo {
     private String processInstanceId;
     private String businessKey;
     private String executionId;
-    private long taskCreateTime;
+    private String taskCreateTime;
     private String processDefinitionId;
     private String orderId;
     private String formkey;
     private String category;
     private Map processVariables;
     private Map taskLocalVariables;
-    private String variableName;
-    private String variableValue;
 
     public String getTaskId() {
         return taskId;
@@ -149,27 +147,11 @@ public class TaskInfo {
         this.taskLocalVariables = taskLocalVariables;
     }
 
-    public String getVariableName() {
-        return variableName;
-    }
-
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
-    }
-
-    public String getVariableValue() {
-        return variableValue;
-    }
-
-    public void setVariableValue(String variableValue) {
-        this.variableValue = variableValue;
-    }
-
-    public long getTaskCreateTime() {
+    public String getTaskCreateTime() {
         return taskCreateTime;
     }
 
-    public void setTaskCreateTime(long taskCreateTime) {
+    public void setTaskCreateTime(String taskCreateTime) {
         this.taskCreateTime = taskCreateTime;
     }
 }

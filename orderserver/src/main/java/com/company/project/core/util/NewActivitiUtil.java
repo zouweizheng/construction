@@ -93,6 +93,20 @@ public class NewActivitiUtil {
         return  Result;
     }
 
+    /**
+     * 获取本人本组别待处理工单
+     * @param url
+     * @param userId
+     * @param processDefinitionId
+     * @return
+     */
+    public static ApiResult<List<Map>> queryMyCandidateTask(String url, String userId, String processDefinitionId, String Tid)
+    {
+        RestTemplate template = new RestTemplate();
+        ApiResult<List<Map>> Result = template.getForObject(url+"/query/querymycandidatetask?userId="+userId+"&processDefinitionId="+processDefinitionId+"&Tid="+Tid,ApiResult.class);
+        return  Result;
+    }
+
 
     /**
      * 获取流程状态

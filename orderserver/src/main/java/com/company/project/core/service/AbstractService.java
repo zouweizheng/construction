@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.config.TaskManagementConfigUtils;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
@@ -140,7 +141,7 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
 
     @Override
     public List<TaskAndOrder> getGroupWait(String userId, String Tid,String searchWord) {
-        ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
+        /*ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
         if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
         List<Map> groupList = (List<Map>) apiResult.getBody();
         List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
@@ -148,11 +149,13 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
             apiResult = NewActivitiUtil.queryCandidateTask(activitiUrl,map.get("id").toString(),processDefinitionId,Tid);
             taskAndOrderList.addAll(selectOrder(apiResult,searchWord));
         }
-        return taskAndOrderList;
+        return taskAndOrderList;*/
+        ApiResult apiResult = NewActivitiUtil.queryMyCandidateTask(activitiUrl,userId,processDefinitionId,Tid);
+        return selectOrder(apiResult,searchWord);
     }
     @Override
     public PageInfo getGroupWait(String userId, String Tid,String searchWord,Integer page,Integer size) {
-        ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
+        /*ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
         if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
         List<Map> groupList = (List<Map>) apiResult.getBody();
         List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
@@ -162,6 +165,10 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
             if(null==apiResult.getBody()) continue;
             taskInfoList.addAll((List<Map>) apiResult.getBody());
         }
+        return orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);*/
+
+        ApiResult apiResult = NewActivitiUtil.queryMyCandidateTask(activitiUrl,userId,processDefinitionId,Tid);
+        List<TaskAndOrder>  taskInfoList = selectOrder(apiResult,searchWord);
         return orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);
     }
 

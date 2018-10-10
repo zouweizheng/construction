@@ -156,6 +156,7 @@ public class ConstructionController {
             }catch (Exception e){
                 System.out.print(e.toString());
             }
+
         }
         session.setAttribute(token,nowTime);
         //判断数据库是否有重复单
