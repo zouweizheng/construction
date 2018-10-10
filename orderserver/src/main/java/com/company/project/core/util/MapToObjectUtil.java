@@ -21,9 +21,14 @@ public class MapToObjectUtil<T> {
       BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
       PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
       for (PropertyDescriptor property : propertyDescriptors) {
-          Method setter = property.getWriteMethod();
-          if (setter != null) {
-              setter.invoke(obj, map.get(property.getName()));
+          try{
+              Method setter = property.getWriteMethod();
+              if (setter != null) {
+                  setter.invoke(obj, map.get(property.getName()));
+              }
+          }
+          catch (Exception e){
+              continue;
           }
       }
       return obj;

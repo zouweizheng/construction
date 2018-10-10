@@ -62,10 +62,10 @@
         and  fee_type= #{feeType}
       </if>
       <if test='startTime!= null and startTime!= ""'>
-        and  DATE_FORMAT(create_time, '%Y-%M-%D %h:%i:%s') > DATE_FORMAT(#{startTime}, '%Y-%M-%D %h:%i:%s')
+        and  DATE_FORMAT(create_time, '%Y-%m-%d %H:%M:%S') > DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%M:%S')
       </if>
       <if test='endTime!= null and endTime!= ""'>
-        and   DATE_FORMAT(#{endTime}, '%Y-%M-%D %h:%i:%s') > DATE_FORMAT(create_time, '%Y-%M-%D %h:%i:%s')
+        and   DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%M:%S') > DATE_FORMAT(create_time, '%Y-%m-%d %H:%M:%S')
       </if>
     </where>
   </select>
@@ -95,10 +95,10 @@
         and  unit_price= #{unitPrice}
       </if>
       <if test='startTime!= null and startTime!= ""'>
-        and  DATE_FORMAT(create_time, '%Y-%M-%D %h:%i:%s') > DATE_FORMAT(#{startTime}, '%Y-%M-%D %h:%i:%s')
+        and  DATE_FORMAT(create_time, '%Y-%m-%d %H:%M:%S') > DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%M:%S')
       </if>
       <if test='endTime!= null and endTime!= ""'>
-        and   DATE_FORMAT(#{endTime}, '%Y-%M-%D %h:%i:%s') > DATE_FORMAT(create_time, '%Y-%M-%D %h:%i:%s')
+        and   DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%M:%S') > DATE_FORMAT(create_time, '%Y-%m-%d %H:%M:%S')
       </if>
     </where>
    GROUP BY project_name,fee_type,work_type
@@ -130,10 +130,10 @@
         and  unit_price= #{unitPrice}
       </if>
       <if test='startTime!= null and startTime!= ""'>
-        and  DATE_FORMAT(create_time, '%Y-%M-%D %h:%i:%s') > DATE_FORMAT(#{startTime}, '%Y-%M-%D %h:%i:%s')
+        and  DATE_FORMAT(create_time, '%Y-%m-%d %H:%M:%S') > DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%M:%S')
       </if>
       <if test='endTime!= null and endTime!= ""'>
-        and   DATE_FORMAT(#{endTime}, '%Y-%M-%D %h:%i:%s') > DATE_FORMAT(create_time, '%Y-%M-%D %h:%i:%s')
+        and   DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%M:%S') > DATE_FORMAT(create_time, '%Y-%m-%d %H:%M:%S')
       </if>
     </where>
     ORDER BY create_time DESC
