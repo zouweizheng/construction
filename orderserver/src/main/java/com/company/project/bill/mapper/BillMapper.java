@@ -79,7 +79,7 @@ public class BillMapper extends OrderImplMapper<BillPojo> {
         Map<String,TaskInfo> taskInfoMap = new HashMap<>();
         for(Map map : taskInfoList){
             try {
-                taskInfo = MapToObjectUtil.mapperObj(map,taskInfo.getClass());
+                taskInfo = (TaskInfo) MapToObjectUtil.mapToObject(map,taskInfo.getClass());
             } catch (Exception e) {
                 e.printStackTrace();
                 continue;

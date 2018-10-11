@@ -3,18 +3,17 @@ package com.company.project.core.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.company.project.foundation.dao.MixMapper;
+import com.cmit.kapok.activiti.business.querytask.QueryService;
 import com.company.project.construction.pojo.ClaimInfo;
 import com.company.project.core.mapper.OrderMapper;
 import com.company.project.core.pojo.*;
 import com.company.project.core.util.MapReflect;
 import com.company.project.core.util.MapToObjectUtil;
 import com.company.project.core.util.NewActivitiUtil;
-import com.github.pagehelper.PageHelper;
+import com.company.project.foundation.dao.MixMapper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.config.TaskManagementConfigUtils;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
@@ -33,6 +32,9 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
 
     @Autowired
     MixMapper mixMapper;
+
+    @Autowired
+    QueryService queryService;
 
 
 
@@ -128,56 +130,27 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     public List<TaskAndOrder> getPersonWait(String userId, String Tid,String searchWord) {
         ApiResult apiResult = NewActivitiUtil.queryAssignedTask(activitiUrl,userId,agentPerson,processDefinitionId,Tid);
         if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
-        return selectOrder(apiResult,searchWord);
+        return selectOrder(queryService.queryMyCandidateTask(userId,processDefinitionKey),searchWord);
     }
 
     @Override
     public PageInfo getPersonWait(String userId, String Tid,String searchWord,Integer page,Integer size) {
-        ApiResult apiResult = NewActivitiUtil.queryAssignedTask(activitiUrl,userId,agentPerson,processDefinitionId,Tid);
-        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
-        return selectOrder(apiResult,searchWord,page,size);
+        return orderImplMapper.getOrderList(queryService.queryMyCandidateTask(userId,processDefinitionKey),searchWord,page,size);
     }
 
 
     @Override
     public List<TaskAndOrder> getGroupWait(String userId, String Tid,String searchWord) {
-        /*ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
-        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
-        List<Map> groupList = (List<Map>) apiResult.getBody();
-        List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
-        for(Map map : groupList){
-            apiResult = NewActivitiUtil.queryCandidateTask(activitiUrl,map.get("id").toString(),processDefinitionId,Tid);
-            taskAndOrderList.addAll(selectOrder(apiResult,searchWord));
-        }
-        return taskAndOrderList;*/
-        ApiResult apiResult = NewActivitiUtil.queryMyCandidateTask(activitiUrl,userId,processDefinitionId,Tid);
-        return selectOrder(apiResult,searchWord);
+        return selectOrder(queryService.queryMyCandidateTask(userId,processDefinitionKey),searchWord);
     }
     @Override
     public PageInfo getGroupWait(String userId, String Tid,String searchWord,Integer page,Integer size) {
-        /*ApiResult apiResult = NewActivitiUtil.getGroupByUser(activitiUrl,userId,Tid);
-        if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
-        List<Map> groupList = (List<Map>) apiResult.getBody();
-        List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
-        List<Map> taskInfoList = new ArrayList<>();
-        for(Map map : groupList){
-            apiResult = NewActivitiUtil.queryCandidateTask(activitiUrl,map.get("id").toString(),processDefinitionId,Tid);
-            if(null==apiResult.getBody()) continue;
-            taskInfoList.addAll((List<Map>) apiResult.getBody());
-        }
-        return orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);*/
-
-        ApiResult apiResult = NewActivitiUtil.queryMyCandidateTask(activitiUrl,userId,processDefinitionId,Tid);
-        List<TaskAndOrder>  taskInfoList = selectOrder(apiResult,searchWord);
-        return orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);
+        List<Map> myCandidateTask = queryService.queryMyCandidateTask(userId, processDefinitionKey);
+        return orderImplMapper.getOrderList(myCandidateTask,searchWord,page,size);
     }
-
 
     @Override
     public List<TaskAndOrder> getPersonCreate(String userId, String Tid) {
-        /*ApiResult apiResult = NewActivitiUtil.que
-        ApiResult apiResult = activitiQueryService.queryCreatedTask(userId,orderImplMapper.getProcessDefinitionId());
-        return selectOrder(apiResult);*/
         return null;
     }
 
@@ -189,9 +162,10 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
 
     @Override
     public PageInfo getPersonFinish(String userId, String Tid, String searchWord, Integer page, Integer size) {
-        ApiResult apiResult = NewActivitiUtil.queryFinishTask(activitiUrl,userId,processDefinitionId,Tid);
+        ApiResult<List<Map>> apiResult = NewActivitiUtil.queryFinishTask(activitiUrl,userId,processDefinitionId,Tid);
         if(!(0==apiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(apiResult.toString());
-        return selectOrder(apiResult,searchWord,page,size);
+        return orderImplMapper.getOrderList(apiResult.getBody(),searchWord,page,size);
+        //return selectOrder(apiResult,searchWord,page,size);
     }
 
     @Override
@@ -338,9 +312,11 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     private PageInfo  selectOrder(ApiResult<List> listApiResult, String searchWord,Integer page,Integer size){
         if(!(0==listApiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(listApiResult.toString());
         List<Map> taskInfoList = listApiResult.getBody();
+        return selectOrder(taskInfoList,searchWord,page,size);
+    }
 
+    private PageInfo  selectOrder( List<Map> taskInfoList, String searchWord,Integer page,Integer size){
         PageInfo orderPojoList = orderImplMapper.getOrderList(taskInfoList,searchWord,page,size);
-
         return orderPojoList;
     }
 
@@ -348,6 +324,10 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
     private List<TaskAndOrder>  selectOrder(ApiResult<List> listApiResult, String searchWord){
         if(!(0==listApiResult.getErrcode())) throw new com.company.project.foundation.core.ServiceException(listApiResult.toString());
         List<Map> taskInfoList = listApiResult.getBody();
+        return selectOrder(taskInfoList,searchWord);
+    }
+
+    private List<TaskAndOrder>  selectOrder( List<Map> taskInfoList, String searchWord){
         List<TaskAndOrder> taskAndOrderList = new ArrayList<>();
         TaskInfo taskInfo = new TaskInfo();
 
@@ -378,7 +358,6 @@ public abstract class AbstractService<T,V> implements Service<T,V> {
             taskAndOrder.setTaskInfo(taskInfoMap.get(orderId));
             taskAndOrderList.add(taskAndOrder);
         }
-
         return taskAndOrderList;
     }
 

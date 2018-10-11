@@ -76,19 +76,26 @@ public class ConstructionMapper extends OrderImplMapper<ConstructionPojo> {
         TaskInfo taskInfo = new TaskInfo();
         List<String> orderIds = new ArrayList<>();
         Map<String,TaskInfo> taskInfoMap = new HashMap<>();
-        for(Map map : taskInfoList){
-            try {
-                taskInfo = MapToObjectUtil.mapperObj(map,taskInfo.getClass());
-            } catch (Exception e) {
-                e.printStackTrace();
-                continue;
+        Map testMap = new HashMap();
+        try{
+            for(Map map : taskInfoList){
+                try {
+                    taskInfo = (TaskInfo) MapToObjectUtil.mapToObject(map,taskInfo.getClass());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+                String orderId = taskInfo.getBusinessKey();
+                if("".equals(orderId)||null==orderId) continue;
+                orderIds.add(taskInfo.getBusinessKey());
+                if(taskInfoMap.containsKey(orderId)) continue;
+                taskInfoMap.put(orderId,taskInfo);
             }
-            String orderId = taskInfo.getBusinessKey();
-            if("".equals(orderId)||null==orderId) continue;
-            orderIds.add(taskInfo.getBusinessKey());
-            if(taskInfoMap.containsKey(orderId)) continue;
-            taskInfoMap.put(orderId,taskInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.toString());
         }
+
 
         //2、查找信息
         ConOrder conOrder = new ConOrder();

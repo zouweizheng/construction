@@ -37,7 +37,8 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
-        genCode("bi_order","bi_order_op_operation","con_order","op_operation","op_order_con_order","op_order","con_order_del","con_order_del_record");
+        //genCode("bi_order","bi_order_op_operation","con_order","op_operation","op_order_con_order","op_order","con_order_del","con_order_del_record");
+        genCode("op_order");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

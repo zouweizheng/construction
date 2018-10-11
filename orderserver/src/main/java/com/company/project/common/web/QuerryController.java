@@ -1,25 +1,19 @@
 package com.company.project.common.web;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.company.project.common.util.TypeReflect;
-import com.company.project.core.pojo.ApiResult;
-import com.company.project.core.pojo.OrderPojo;
 import com.company.project.core.pojo.TaskAndOrder;
 import com.company.project.core.service.AbstractService;
 import com.company.project.foundation.core.Result;
 import com.company.project.foundation.core.ResultGenerator;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +26,7 @@ public class QuerryController {
 
     @Autowired
     ApplicationContext applicationContext;
+
 
     @GetMapping("/waitPerson")
     public Result waitPerson(@RequestParam String orderType ,@RequestAttribute String userId,@RequestAttribute String tid,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,@RequestParam(defaultValue = "0") String pagination,@RequestParam(defaultValue = "") String searchWord) {
