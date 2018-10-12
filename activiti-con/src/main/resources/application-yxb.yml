@@ -1,7 +1,7 @@
 spring:
   profiles: yxb
   datasource:
-    url: jdbc:mysql://rm-wz99n6r6h00g9v27uo.mysql.rds.aliyuncs.com:3306/yxb-test1?autoReconnect=true
+    url: jdbc:mysql://rm-wz99n6r6h00g9v27uo.mysql.rds.aliyuncs.com:3306/yxb_back1?autoReconnect=true
     username: zouweizheng
     password: Zou123456
     driver-class-name: com.mysql.jdbc.Driver
